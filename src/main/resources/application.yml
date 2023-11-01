@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: blog-query-service
+server:
+  port: 8086
+# port: 0
+
+eureka:
+  instance:
+    #    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${server.port}}
+    hostname: localhost
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka
