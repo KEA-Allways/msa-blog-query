@@ -42,7 +42,7 @@ public class templateControllerTest {
         mockMvc.perform(
                         get("/api/templates/{userSeq}/{templateSeq}", userSeq, templateSeq))
                 .andExpect(status().isOk());
-        verify(templateCommandService).readOne(userSeq, templateSeq);
+        verify(templateCommandService).readOne(templateSeq);
     }
 
     @Test

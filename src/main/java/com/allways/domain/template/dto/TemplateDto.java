@@ -10,12 +10,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class TemplateDto {
     private Long templateSeq;
-    private String templateName;
+    private String templateTitle;
     private String templateContent;
 
     public static TemplateDto toDto(Template template) {
         return new TemplateDto(template.getTemplateSeq(),
-                template.getTemplateName(),
+                template.getTemplateTitle(),
                 template.getTemplateContent());
     }
 }
