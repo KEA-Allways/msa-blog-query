@@ -1,11 +1,13 @@
-package com.allways.common.feign;
+package com.allways.common.feign.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
-public class UserFeignResponse {
+@NoArgsConstructor
+public class UserByPostResponse {
 	private Long postSeq;
 	private Long userSeq;
 	private String userId;
