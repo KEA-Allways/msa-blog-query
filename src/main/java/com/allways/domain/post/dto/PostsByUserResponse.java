@@ -8,7 +8,7 @@ import com.allways.domain.post.entity.Post;
 import lombok.Getter;
 
 @Getter
-public class PostFindMainResponse {
+public class PostsByUserResponse {
 
 	private Long postSeq;
 	private String postTitle;
@@ -24,7 +24,7 @@ public class PostFindMainResponse {
 
 
 	// private
-	public PostFindMainResponse(Post post,String userId, String nickName, String thumbImg, String profileImg) {
+	public PostsByUserResponse(Post post,String userId, String nickName, String thumbImg, String profileImg) {
 		this.postSeq = post.getPostSeq();
 		this.postTitle = post.getPostTitle();
 		this.postDate = post.getCreatedAt();
