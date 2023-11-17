@@ -1,4 +1,4 @@
-package com.allways.domain.post.domain;
+package com.allways.domain.post.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,6 +14,7 @@ import com.allways.common.EntityDate;
 import com.allways.domain.category.domain.Category;
 
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -26,24 +27,20 @@ public class Post extends EntityDate  {
 	private Long postSeq;
 
 	@Column(nullable = false)
-	private String postName;
+	private String postTitle;
 
 	@Column(nullable = false)
 	@Lob
 	private String postContent;
 
 	@Column
-	private String postView;
+	private Integer postView;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "category_seq", nullable = false)
-	// @OnDelete(action = OnDeleteAction.CASCADE)
 	private Category category;
 
-
-	// @ManyToOne(fetch = FetchType.LAZY)
-	// @JoinColumn(name = "user_seq", nullable = false)
-	// // @OnDelete(action = OnDeleteAction.CASCADE)
-	// private User user;
+	@Column
+	private Long userSeq;
 
 }

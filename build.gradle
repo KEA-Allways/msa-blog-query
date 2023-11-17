@@ -30,6 +30,9 @@ dependencies {
 	//유레카 client 설정
 	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+	implementation 'javax.validation:validation-api'
+
 	runtimeOnly 'org.mariadb.jdbc:mariadb-java-client' // MariaDB
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
