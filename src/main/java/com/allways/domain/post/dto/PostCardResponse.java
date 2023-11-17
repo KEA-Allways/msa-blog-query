@@ -8,8 +8,7 @@ import com.allways.domain.post.entity.Post;
 import lombok.Getter;
 
 @Getter
-public class PostsByUserResponse {
-
+public class PostCardResponse {
 	private Long postSeq;
 	private String postTitle;
 	private String subTitle;
@@ -24,7 +23,7 @@ public class PostsByUserResponse {
 
 
 	// private
-	public PostsByUserResponse(Post post,String userId, String nickName, String thumbImg, String profileImg) {
+	public PostCardResponse(Post post,String userId, String nickName, String thumbImg, String profileImg) {
 		this.postSeq = post.getPostSeq();
 		this.postTitle = post.getPostTitle();
 		this.postDate = post.getCreatedAt();
@@ -46,7 +45,4 @@ public class PostsByUserResponse {
 			return content.substring(0, maxLength) + "..."; // 문자열을 maxLength까지 자르고 반환
 		}
 	}
-
-
-
 }
