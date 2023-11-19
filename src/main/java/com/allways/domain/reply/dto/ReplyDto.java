@@ -28,7 +28,8 @@ public class ReplyDto {
     public static List<ReplyDto> toDtoList(List<Reply> replies) {
         NestedConvertHelper helper = NestedConvertHelper.newInstance(
                 replies,
-                c -> new ReplyDto(c.getReplySeq()
+                c -> new ReplyDto(
+                        c.getReplySeq()
                         , c.isDeleted() ? null : c.getReplyContent()
                         //, c.isDeleted() ? null : MemberDto.toDto(c.getMember())   //추후에 주석 해제 필요
                         , c.getCreatedAt()
