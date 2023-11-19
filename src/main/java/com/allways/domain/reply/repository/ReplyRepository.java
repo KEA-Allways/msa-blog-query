@@ -1,7 +1,6 @@
 package com.allways.domain.reply.repository;
 
-import com.allways.domain.reply.domain.Reply;
-import com.allways.domain.reply.dto.ReplyDto;
+import com.allways.domain.reply.entity.Reply;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
