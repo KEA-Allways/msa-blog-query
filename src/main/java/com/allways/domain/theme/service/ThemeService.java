@@ -18,4 +18,12 @@ public class ThemeService {
     public List<Theme> readThemes (Long userSeq){
         return themeRepository.findThemeByUserSeqOrderByThemeOrder(userSeq);
     }
+
+    @Transactional
+    public Long readLastThemeOrderByUserSeq(Long userSeq){
+        //테마 생성 시 가장 높은 themeOrder를 조회한 후 + 1
+        Long lastOrder = themeRepository.readLastThemeOrderByUserSeq(userSeq);
+        lastOrder += 1;
+        return lastOrder;
+    }
 }
