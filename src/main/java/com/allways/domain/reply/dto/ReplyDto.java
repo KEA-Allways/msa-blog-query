@@ -1,7 +1,7 @@
 package com.allways.domain.reply.dto;
 
 import com.allways.common.helper.NestedConvertHelper;
-import com.allways.domain.reply.domain.Reply;
+import com.allways.domain.reply.entity.Reply;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
@@ -9,7 +9,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)

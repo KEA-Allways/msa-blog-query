@@ -1,6 +1,6 @@
 package com.allways.domain.theme.controller;
 
-import com.allways.domain.theme.domain.Theme;
+import com.allways.domain.theme.entity.Theme;
 import com.allways.domain.theme.service.ThemeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

@@ -1,11 +1,11 @@
-// package com.allways.domain.post.dto;
+// package com.allways.entity.post.dto;
 //
 // import java.util.ArrayList;
 // import java.util.List;
 //
-// import org.springframework.data.domain.Page;
+// import org.springframework.data.entity.Page;
 //
-// import com.allways.domain.post.entity.Post;
+// import com.allways.entity.post.entity.Post;
 //
 // public class PostCardPagingResponse {
 //
