@@ -69,7 +69,9 @@ public class PostQueryService {
 	@Transactional
 	public PostDetailResponse readPostDetail(Long postSeq) {
 		Post post = postQueryRepository.findById(postSeq).orElseThrow(PostNotFoundException::new);
-		UserFeignResponse userFeignResponse = userFeignService.queryUser(post.getUserSeq());
+
+		userFeignService.queryUser(post.getUserSeq());
+		UserFeignResponse userFeignResponse = postFeignService.increasePostView(postSeq);
 
 		PostDetailResponse postDetailResponse = new PostDetailResponse(
 			post,userFeignResponse
@@ -94,6 +96,7 @@ public class PostQueryService {
 	@Transactional
 	public Page<PostCardResponse> readPostsByCategory(Long userSeq,Long categorySeq,Pageable pageable) {
 
+
 		UserFeignResponse userFeignResponse = userFeignService.queryUser(userSeq);
 		String userId = userFeignResponse.getUserId();
 		String nickname = userFeignResponse.getNickname();
@@ -102,7 +105,7 @@ public class PostQueryService {
 		String profileImg = "open fegin";
 
 		pageable = PageRequest.of(pageable.getPageNumber()-1, pageable.getPageSize());
-		Page<Post> posts = postQueryRepository.findAllByUserSeqAndCategory(userSeq,categorySeq,pageable);
+		Page<Post> posts = postQueryRepository.findAllByUserSeqAndCategory_CategorySeqOrderByCreatedAt(userSeq,categorySeq,pageable);
 		Page<PostCardResponse> postResponse = posts.map(m -> PostCardResponse.toResponse(m,userId,nickname,profileImg));
 
 		return postResponse;

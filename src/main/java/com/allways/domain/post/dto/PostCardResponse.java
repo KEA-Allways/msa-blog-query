@@ -42,14 +42,15 @@ public class PostCardResponse {
 		return PostCardResponse.builder()
 			.postSeq(post.getPostSeq())
 			.postTitle(post.getPostTitle())
-			.subTitle(post.getPostTitle())
+			.postDate(post.getCreatedAt())
+			.subTitle(generateSubtitleFromContent(post.getPostContent(), Constants.SUBTITLE_LENGTH))
 			.userId(userId)
 			.nickName(nickName)
 			.profileImg(profileImg)
 			.build();
 	}
 
-	public String generateSubtitleFromContent(String content, int maxLength) {
+	public static String generateSubtitleFromContent(String content, int maxLength) {
 		if (content == null) {
 			return null; // 입력이 null인 경우에 대한 처리
 		}
