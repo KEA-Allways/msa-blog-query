@@ -12,10 +12,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.allways.common.response.Response;
+import com.allways.domain.post.dto.MngtPostResponse;
 import com.allways.domain.post.dto.PostResponse;
-import com.allways.domain.post.dto.PostsMainResponse;
 import com.allways.domain.post.dto.PostsByUserResponse;
-import com.allways.domain.post.entity.Post;
 import com.allways.domain.post.service.PostQueryService;
 
 import lombok.RequiredArgsConstructor;
@@ -36,13 +35,13 @@ public class PostQueryController {
 	}
 
 	// 사용자가 작성한 게시글을 조회합니다.(관리자 페이지)
-	// @GetMapping("api/posts/{userSeq}")
-	// @ResponseStatus(HttpStatus.OK)
-	// public Response findPostsByUser(@PathVariable Long userSeq, @PageableDefault Pageable pageable) {
-	// 	Page<Post> posts = postQueryService.findPostsByUser(userSeq, pageable);
-	// 	// PostsMainResponse postsMainResponse = new PostsMainResponse(posts);
-	// 	// return Response.success(postsMainResponse);
-	// }
+	@GetMapping("api/posts/users/{userSeq}")
+	@ResponseStatus(HttpStatus.OK)
+	public Response findPostsByUser(@PathVariable Long userSeq, @PageableDefault Pageable pageable) {
+
+		Page<MngtPostResponse> posts = postQueryService.findPostsByUser(userSeq, pageable);
+		return Response.success(posts);
+	}
 
 	//특정 게시글의 상세 정보를 조회합니다.
 	@GetMapping("api/posts/{postSeq}")
