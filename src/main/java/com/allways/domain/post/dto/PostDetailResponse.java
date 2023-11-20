@@ -2,18 +2,7 @@ package com.allways.domain.post.dto;
 
 import java.time.LocalDateTime;
 
-import javax.persistence.Column;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
-
-import com.allways.common.feign.user.UserByPostFeignResponse;
 import com.allways.common.feign.user.UserFeignResponse;
-import com.allways.domain.category.domain.Category;
 import com.allways.domain.post.entity.Post;
 
 import lombok.AllArgsConstructor;
@@ -23,7 +12,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class PostResponse {
+public class PostDetailResponse {
 
 	private Long postSeq;
 	private String postTitle;
@@ -42,7 +31,7 @@ public class PostResponse {
 	private String thumbImg;
 	private String profileImg;
 
-	public PostResponse(Post post, UserFeignResponse userFeignResponse) {
+	public PostDetailResponse(Post post, UserFeignResponse userFeignResponse) {
 		this.postSeq = post.getPostSeq();
 		this.postTitle = post.getPostTitle();
 		this.postContent = post.getPostContent();

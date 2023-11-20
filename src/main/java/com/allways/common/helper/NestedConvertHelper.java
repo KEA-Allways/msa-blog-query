@@ -17,6 +17,17 @@ public class NestedConvertHelper<K, E, D> {
         return new NestedConvertHelper<K, E, D>(entities, toDto, getParent, getKey, getChildren);
     }
 
+    public static <K, E, D> NestedConvertHelper newInstance(List<E> entities, Function<E, D> toDto, Function<E, K> getKey, Function<D, List<D>> getChildren) {
+        return new NestedConvertHelper<K, E, D>(entities, toDto, getKey, getChildren);
+    }
+
+    private NestedConvertHelper(List<E> entities, Function<E, D> toDto, Function<E, K> getKey, Function<D, List<D>> getChildren) {
+        this.entities = entities;
+        this.toDto = toDto;
+        this.getKey = getKey;
+        this.getChildren = getChildren;
+    }
+
     private NestedConvertHelper(List<E> entities, Function<E, D> toDto, Function<E, E> getParent, Function<E, K> getKey, Function<D, List<D>> getChildren) {
         this.entities = entities;
         this.toDto = toDto;
@@ -29,6 +40,14 @@ public class NestedConvertHelper<K, E, D> {
         try {
             return convertInternal();
         } catch (NullPointerException e) {
+            throw new CannotConvertNestedStructureException(e.getMessage());
+        }
+    }
+
+    public List<D> convert2(){
+        try {
+            return convertInternal2();
+        } catch (NullPointerException e){
             throw new CannotConvertNestedStructureException(e.getMessage());
         }
     }
@@ -50,6 +69,25 @@ public class NestedConvertHelper<K, E, D> {
             }
         }
         return roots;
+    }
+
+    private List<D> convertInternal2() {
+        Map<K, D> map2 = new HashMap<>();
+        List<D> roots2 = new ArrayList<>();
+
+        for (E e : entities) {
+            D dto = toDto(e);
+            map2.put(getKey(e), dto);
+//            if (hasParent(e)) {
+//                E parent = getParent(e);
+//                K parentKey = getKey(parent);
+//                D parentDto = map.get(parentKey);
+//                getChildren(parentDto).add(dto);
+//            } else {
+//                roots.add(dto);
+//            }
+        }
+        return roots2;
     }
 
     private boolean hasParent(E e) {

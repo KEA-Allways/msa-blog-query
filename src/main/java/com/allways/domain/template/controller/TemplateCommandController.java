@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @Slf4j
+@CrossOrigin(origins = "http://localhost:3000")
 public class TemplateCommandController {
     private final TemplateCommandService templateCommandService;
     // Read의 경우 읽은 정보를 Front단으로 보내줘야 하기에 Response.success(서비스 작업 수행)을 수행한다.

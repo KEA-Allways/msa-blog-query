@@ -38,7 +38,6 @@ public class Post extends EntityDate  {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "category_seq", nullable = false)
-	// @OnDelete(action = OnDeleteAction.CASCADE)
 	private Category category;
 
 	@Column

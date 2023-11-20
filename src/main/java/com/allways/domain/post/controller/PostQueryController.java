@@ -6,10 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.allways.common.response.Response;
 import com.allways.domain.post.dto.MngtPostResponse;
@@ -21,6 +18,7 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:3000")
 public class PostQueryController {
 
 	private final PostQueryService postQueryService;
@@ -29,9 +27,9 @@ public class PostQueryController {
 	//최신순으로 10개 데이터를 조회한다
 	@GetMapping("api/posts/main")
 	@ResponseStatus(HttpStatus.OK)
-	public Response findMainPost() {
-		List<PostsByUserResponse> postsByUserResponse = postQueryService.findMainPosts();
-		return Response.success(postsByUserResponse);
+	public Response findMainPosts() {
+		List<PostCardResponse> postCardResponse = postQueryService.findMainPosts();
+		return Response.success(postCardResponse);
 	}
 
 	// 사용자가 작성한 게시글을 조회합니다.(관리자 페이지)
@@ -46,9 +44,19 @@ public class PostQueryController {
 	//특정 게시글의 상세 정보를 조회합니다.
 	@GetMapping("api/posts/{postSeq}")
 	@ResponseStatus(HttpStatus.OK)
-	public Response readPost(@PathVariable Long postSeq) {
-		PostResponse postReadResponse = postQueryService.readPost(postSeq);
-		return Response.success(postReadResponse);
+	public Response readPostDetail(@PathVariable Long postSeq) {
+		PostDetailResponse postDetailResponse = postQueryService.readPostDetail(postSeq);
+		return Response.success(postDetailResponse);
+	}
+
+
+	//특정 사용자의 특정 카테고리 게시글을 보여줍니다.
+	@GetMapping("api/posts/{userSeq}/{categorySeq}")
+	@ResponseStatus(HttpStatus.OK)
+	public Response readPostsByCategory(@PathVariable Long userSeq, @PathVariable Long categorySeq, @PageableDefault Pageable pageable) {
+		Page<Post> posts = postQueryService.readPostsByCategory(userSeq, categorySeq, pageable);
+
+		return Response.success(posts);
 	}
 
 
