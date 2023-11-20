@@ -2,7 +2,7 @@ package com.allways.domain.post.dto;
 
 import java.time.LocalDateTime;
 
-import com.allways.common.feign.user.UserFeignResponse;
+import com.allways.common.feign.user.dto.UserFeignResponse;
 import com.allways.domain.post.entity.Post;
 
 import lombok.AllArgsConstructor;
@@ -12,7 +12,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class PostDetailResponse {
+public class PostResponse {
 
 	private Long postSeq;
 	private String postTitle;
@@ -31,7 +31,7 @@ public class PostDetailResponse {
 	private String thumbImg;
 	private String profileImg;
 
-	public PostDetailResponse(Post post, UserFeignResponse userFeignResponse) {
+	public PostResponse(Post post, UserFeignResponse userFeignResponse) {
 		this.postSeq = post.getPostSeq();
 		this.postTitle = post.getPostTitle();
 		this.postContent = post.getPostContent();

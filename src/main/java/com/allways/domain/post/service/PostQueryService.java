@@ -9,13 +9,14 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.allways.common.feign.user.UserFeignResponse;
+import com.allways.common.feign.post.PostFeignService;
+import com.allways.common.feign.user.dto.UserFeignResponse;
 import com.allways.common.feign.user.UserFeignService;
-import com.allways.common.feign.user.UserByPostFeignRequest;
-import com.allways.common.feign.user.UserByPostResponse;
+import com.allways.common.feign.user.dto.UserByPostFeignRequest;
+import com.allways.common.feign.user.dto.UserByPostResponse;
 import com.allways.domain.post.dto.MngtPostResponse;
 import com.allways.domain.post.dto.PostCardResponse;
-import com.allways.domain.post.dto.PostDetailResponse;
+import com.allways.domain.post.dto.PostResponse;
 import com.allways.domain.post.entity.Post;
 import com.allways.domain.post.exception.PostNotFoundException;
 import com.allways.domain.post.repository.PostQueryRepository;
@@ -31,9 +32,10 @@ public class PostQueryService {
 
 	private final PostQueryRepository postQueryRepository;
 	private final UserFeignService userFeignService;
+	private final PostFeignService postFeignService;
 
 	@Transactional
-	public List<PostCardResponse> findMainPosts() {
+	public List<PostCardResponse> readMainPosts() {
 
 		List<Post> posts = postQueryRepository.findTop10ByOrderByCreatedAtAsc();
 
@@ -67,22 +69,22 @@ public class PostQueryService {
 	}
 
 	@Transactional
-	public PostDetailResponse readPostDetail(Long postSeq) {
+	public PostResponse readPost(Long postSeq) {
 		Post post = postQueryRepository.findById(postSeq).orElseThrow(PostNotFoundException::new);
 
-		userFeignService.queryUser(post.getUserSeq());
-		UserFeignResponse userFeignResponse = postFeignService.increasePostView(postSeq);
+		UserFeignResponse userFeignResponse = userFeignService.queryUser(post.getUserSeq());
+		postFeignService.increasePostView(postSeq);
 
-		PostDetailResponse postDetailResponse = new PostDetailResponse(
+		PostResponse postResponse = new PostResponse(
 			post,userFeignResponse
 		);
 
-		return postDetailResponse;
+		return postResponse;
 	}
 
 
 	@Transactional
-	public Page<MngtPostResponse> findPostsByUser(Long userSeq, Pageable pageable) {
+	public Page<MngtPostResponse> readAllPosts(Long userSeq, Pageable pageable) {
 
 		//프론트 페이지는 1번부터 백엔드에서 pageable 객체는 0번 인덱스 부터 시작하기 때문에 프론트에서 넘어오는 페이지 값의 1을 빼야한다.!
 		pageable = PageRequest.of(pageable.getPageNumber()-1, pageable.getPageSize());
@@ -94,7 +96,7 @@ public class PostQueryService {
 
 
 	@Transactional
-	public Page<PostCardResponse> readPostsByCategory(Long userSeq,Long categorySeq,Pageable pageable) {
+	public Page<PostCardResponse> readPostsInCategory(Long userSeq,Long categorySeq,Pageable pageable) {
 
 
 		UserFeignResponse userFeignResponse = userFeignService.queryUser(userSeq);

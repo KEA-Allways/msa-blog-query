@@ -1,4 +1,4 @@
-package com.allways.common.feign.user;
+package com.allways.common.feign.user.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
