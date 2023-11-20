@@ -14,8 +14,8 @@ import com.allways.common.feign.user.UserFeignService;
 import com.allways.common.feign.user.UserByPostFeignRequest;
 import com.allways.common.feign.user.UserByPostResponse;
 import com.allways.domain.post.dto.MngtPostResponse;
-import com.allways.domain.post.dto.PostResponse;
-import com.allways.domain.post.dto.PostsByUserResponse;
+import com.allways.domain.post.dto.PostCardResponse;
+import com.allways.domain.post.dto.PostDetailResponse;
 import com.allways.domain.post.entity.Post;
 import com.allways.domain.post.exception.PostNotFoundException;
 import com.allways.domain.post.repository.PostQueryRepository;
@@ -58,7 +58,7 @@ public class PostQueryService {
 			for (UserByPostResponse userByPostResponse : userByPostResponseList) {
 				if (post.getPostSeq() == userByPostResponse.getPostSeq()) {
 					postCardResponse.add(new PostCardResponse(post, userByPostResponse.getUserId(),
-						userByPostResponse.getNickname(), thumbImg, profileImg));
+						userByPostResponse.getNickname(), profileImg));
 				}
 			}
 		}
@@ -92,11 +92,20 @@ public class PostQueryService {
 
 
 	@Transactional
-	public Page<Post> readPostsByCategory(Long userSeq,Long categorySeq,Pageable pageable) {
+	public Page<PostCardResponse> readPostsByCategory(Long userSeq,Long categorySeq,Pageable pageable) {
 
+		UserFeignResponse userFeignResponse = userFeignService.queryUser(userSeq);
+		String userId = userFeignResponse.getUserId();
+		String nickname = userFeignResponse.getNickname();
+
+		//msa-file-query open feign
+		String profileImg = "open fegin";
+
+		pageable = PageRequest.of(pageable.getPageNumber()-1, pageable.getPageSize());
 		Page<Post> posts = postQueryRepository.findAllByUserSeqAndCategory(userSeq,categorySeq,pageable);
-		// UserFeignResponse userFeignResponse = userFeignService.queryUser(userSeq);
-		return posts;
+		Page<PostCardResponse> postResponse = posts.map(m -> PostCardResponse.toResponse(m,userId,nickname,profileImg));
+
+		return postResponse;
 
 	}
 

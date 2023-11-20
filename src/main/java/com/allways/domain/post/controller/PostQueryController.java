@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.*;
 
 import com.allways.common.response.Response;
 import com.allways.domain.post.dto.MngtPostResponse;
-import com.allways.domain.post.dto.PostResponse;
-import com.allways.domain.post.dto.PostsByUserResponse;
+import com.allways.domain.post.dto.PostCardResponse;
+import com.allways.domain.post.dto.PostDetailResponse;
 import com.allways.domain.post.service.PostQueryService;
 
 import lombok.RequiredArgsConstructor;
@@ -36,9 +36,8 @@ public class PostQueryController {
 	@GetMapping("api/posts/users/{userSeq}")
 	@ResponseStatus(HttpStatus.OK)
 	public Response findPostsByUser(@PathVariable Long userSeq, @PageableDefault Pageable pageable) {
-
-		Page<MngtPostResponse> posts = postQueryService.findPostsByUser(userSeq, pageable);
-		return Response.success(posts);
+		Page<MngtPostResponse> postResponse = postQueryService.findPostsByUser(userSeq, pageable);
+		return Response.success(postResponse);
 	}
 
 	//특정 게시글의 상세 정보를 조회합니다.
@@ -54,9 +53,8 @@ public class PostQueryController {
 	@GetMapping("api/posts/{userSeq}/{categorySeq}")
 	@ResponseStatus(HttpStatus.OK)
 	public Response readPostsByCategory(@PathVariable Long userSeq, @PathVariable Long categorySeq, @PageableDefault Pageable pageable) {
-		Page<Post> posts = postQueryService.readPostsByCategory(userSeq, categorySeq, pageable);
-
-		return Response.success(posts);
+		Page<PostCardResponse> postResponse = postQueryService.readPostsByCategory(userSeq, categorySeq, pageable);
+		return Response.success(postResponse);
 	}
 
 

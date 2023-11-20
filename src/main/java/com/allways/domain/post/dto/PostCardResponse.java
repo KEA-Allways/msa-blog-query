@@ -5,9 +5,15 @@ import java.time.LocalDateTime;
 import com.allways.common.Constants;
 import com.allways.domain.post.entity.Post;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class PostCardResponse {
 	private Long postSeq;
 	private String postTitle;
@@ -18,20 +24,29 @@ public class PostCardResponse {
 
 	private LocalDateTime postDate;
 
-	private String thumbImg;
 	private String profileImg;
 
 
 	// private
-	public PostCardResponse(Post post,String userId, String nickName, String thumbImg, String profileImg) {
+	public PostCardResponse(Post post,String userId, String nickName, String profileImg) {
 		this.postSeq = post.getPostSeq();
 		this.postTitle = post.getPostTitle();
 		this.postDate = post.getCreatedAt();
 		this.subTitle = generateSubtitleFromContent(post.getPostContent(), Constants.SUBTITLE_LENGTH);
 		this.userId = userId;
 		this.nickName = nickName;
-		this.thumbImg = thumbImg;
 		this.profileImg = profileImg;
+	}
+
+	public static PostCardResponse toResponse(Post post,String userId, String nickName, String profileImg) {
+		return PostCardResponse.builder()
+			.postSeq(post.getPostSeq())
+			.postTitle(post.getPostTitle())
+			.subTitle(post.getPostTitle())
+			.userId(userId)
+			.nickName(nickName)
+			.profileImg(profileImg)
+			.build();
 	}
 
 	public String generateSubtitleFromContent(String content, int maxLength) {
