@@ -1,4 +1,4 @@
-package com.allways.domain.reply.domain;
+package com.allways.domain.reply.entity;
 
 import javax.persistence.*;
 
@@ -10,9 +10,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
 @Entity

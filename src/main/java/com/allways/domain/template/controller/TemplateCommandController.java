@@ -12,16 +12,15 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 public class TemplateCommandController {
     private final TemplateCommandService templateCommandService;
-    // Read의 경우 읽은 정보를 Front단으로 보내줘야 하기에 Response.success(서비스 작업 수행)을 수행한다.
 
     // 템플릿(서식) 목록 불러오기
-    @GetMapping("/api/templates/{userSeq}")
+    @GetMapping("/api/template")
     @ResponseStatus(HttpStatus.OK)
-    public Response readAll(@PathVariable Long userSeq) {
+    public Response readAll(@RequestHeader(value = "userSeq") Long userSeq) {
         return Response.success(templateCommandService.readAll(userSeq));
     }
 
-    // 템플릿(서식) 한개 내용물 불러오기
+    // 템플릿(서식) 상세 보기
     @GetMapping("/api/template/{templateSeq}")
     @ResponseStatus(HttpStatus.OK)
     public Response readOne(@PathVariable Long templateSeq) {

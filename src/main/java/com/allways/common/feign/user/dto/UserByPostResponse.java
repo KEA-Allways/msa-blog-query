@@ -1,15 +1,15 @@
-package com.allways.common.feign.user;
+package com.allways.common.feign.user.dto;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-public class UserFeignResponse {
+public class UserByPostResponse {
+	private Long postSeq;
+	private Long userSeq;
 	private String userId;
 	private String nickname;
-	private String email;
-	private String profileImgSeq;
 }

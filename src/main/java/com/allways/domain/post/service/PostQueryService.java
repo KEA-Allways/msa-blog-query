@@ -4,33 +4,38 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.allways.common.feign.user.UserFeignResponse;
+import com.allways.common.feign.post.PostFeignService;
+import com.allways.common.feign.user.dto.UserFeignResponse;
 import com.allways.common.feign.user.UserFeignService;
-import com.allways.common.feign.user.UserByPostFeignRequest;
-import com.allways.common.feign.user.UserByPostResponse;
+import com.allways.common.feign.user.dto.UserByPostFeignRequest;
+import com.allways.common.feign.user.dto.UserByPostResponse;
+import com.allways.domain.post.dto.UserAllPostListResponse;
 import com.allways.domain.post.dto.PostCardResponse;
-import com.allways.domain.post.dto.PostDetailResponse;
-import com.allways.domain.post.dto.PostMainResponse;
+import com.allways.domain.post.dto.PostResponse;
 import com.allways.domain.post.entity.Post;
 import com.allways.domain.post.exception.PostNotFoundException;
 import com.allways.domain.post.repository.PostQueryRepository;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
+@Slf4j
 public class PostQueryService {
 
 	private final PostQueryRepository postQueryRepository;
 	private final UserFeignService userFeignService;
+	private final PostFeignService postFeignService;
 
 	@Transactional
-	public List<PostCardResponse> findMainPosts() {
+	public List<PostCardResponse> readMainPosts() {
 
 		List<Post> posts = postQueryRepository.findTop10ByOrderByCreatedAtAsc();
 
@@ -47,7 +52,7 @@ public class PostQueryService {
 		//file feign 추가하기
 		// thumbImg, profileImg
 		String thumbImg = "https://allways-image.s3.ap-northeast-2.amazonaws.com/test-img/main-img/thailand.jpg";
-		String profileImg = "https://allways-image.s3.ap-northeast-2.amazonaws.com/test-img/main-img/thailand.jpg";
+		String profileImg = "https://allways-image.s3.ap-northeast-2.amazonaws.com/test-img/icon/jessie.png";
 
 		List<PostCardResponse> postCardResponse = new ArrayList<>();
 
@@ -55,7 +60,7 @@ public class PostQueryService {
 			for (UserByPostResponse userByPostResponse : userByPostResponseList) {
 				if (post.getPostSeq() == userByPostResponse.getPostSeq()) {
 					postCardResponse.add(new PostCardResponse(post, userByPostResponse.getUserId(),
-						userByPostResponse.getNickname(), thumbImg, profileImg));
+						userByPostResponse.getNickname(), profileImg,thumbImg));
 				}
 			}
 		}
@@ -64,31 +69,49 @@ public class PostQueryService {
 	}
 
 	@Transactional
-	public PostDetailResponse readPostDetail(Long postSeq) {
+	public PostResponse readPost(Long postSeq) {
 		Post post = postQueryRepository.findById(postSeq).orElseThrow(PostNotFoundException::new);
-		UserFeignResponse userFeignResponse = userFeignService.queryUser(post.getUserSeq());
 
-		PostDetailResponse postDetailResponse = new PostDetailResponse(
+		UserFeignResponse userFeignResponse = userFeignService.queryUser(post.getUserSeq());
+		postFeignService.increasePostView(postSeq);
+
+		PostResponse postResponse = new PostResponse(
 			post,userFeignResponse
 		);
 
-		return postDetailResponse;
+		return postResponse;
 	}
 
 
 	@Transactional
-	public Page<Post> findPostsByUser(Long userSeq, Pageable pageable) {
+	public Page<UserAllPostListResponse> readAllPosts(Long userSeq, Pageable pageable) {
+
+		//프론트 페이지는 1번부터 백엔드에서 pageable 객체는 0번 인덱스 부터 시작하기 때문에 프론트에서 넘어오는 페이지 값의 1을 빼야한다.!
+		pageable = PageRequest.of(pageable.getPageNumber()-1, pageable.getPageSize());
 		Page<Post> posts = postQueryRepository.findAllByUserSeq(userSeq, pageable);
-		return posts;
+		Page<UserAllPostListResponse> postResponse = posts.map(m -> UserAllPostListResponse.toDto(m));
+
+		return postResponse;
 	}
 
 
 	@Transactional
-	public Page<Post> readPostsByCategory(Long userSeq,Long categorySeq,Pageable pageable) {
+	public Page<PostCardResponse> readPostsInCategory(Long userSeq,Long categorySeq,Pageable pageable) {
 
-		Page<Post> posts = postQueryRepository.findAllByUserSeqAndCategory(userSeq,categorySeq,pageable);
-		// UserFeignResponse userFeignResponse = userFeignService.queryUser(userSeq);
-		return posts;
+
+		UserFeignResponse userFeignResponse = userFeignService.queryUser(userSeq);
+		String userId = userFeignResponse.getUserId();
+		String nickname = userFeignResponse.getNickname();
+
+		//msa-file-query open feign
+		String thumbImg = "https://allways-image.s3.ap-northeast-2.amazonaws.com/test-img/main-img/thailand.jpg";
+		String profileImg = "https://allways-image.s3.ap-northeast-2.amazonaws.com/test-img/icon/jessie.png";
+
+		pageable = PageRequest.of(pageable.getPageNumber()-1, pageable.getPageSize());
+		Page<Post> posts = postQueryRepository.findAllByUserSeqAndCategory_CategorySeqOrderByCreatedAt(userSeq,categorySeq,pageable);
+		Page<PostCardResponse> postResponse = posts.map(m -> PostCardResponse.toResponse(m,userId,nickname,profileImg,thumbImg));
+
+		return postResponse;
 
 	}
 

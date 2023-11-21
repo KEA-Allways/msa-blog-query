@@ -1,4 +1,4 @@
-package com.allways.domain.theme.domain;
+package com.allways.domain.theme.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -27,11 +27,8 @@ public class Theme extends EntityDate {
 	@Column
 	private Long themeOrder;
 
-	// @ManyToOne(fetch = FetchType.LAZY)
-	// @JoinColumn(name = "user_seq")
-	// private User user;
-
-	//이미지 추가
+	@Column
+	private Long userSeq;
 
 
 }
