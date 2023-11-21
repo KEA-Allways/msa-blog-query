@@ -45,8 +45,8 @@ public class PostResponse {
 		this.nickname = userFeignResponse.getNickname();
 
 		//수정
-		this.profileImg = userFeignResponse.getProfileImgSeq();
-		this.thumbImg = getThumbImg();
+		this.profileImg = "profileImg";
+		this.thumbImg = "thumbImg";
 	}
 
 

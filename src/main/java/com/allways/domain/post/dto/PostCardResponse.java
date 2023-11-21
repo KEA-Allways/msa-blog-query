@@ -25,10 +25,11 @@ public class PostCardResponse {
 	private LocalDateTime postDate;
 
 	private String profileImg;
+	private String thumbImg;
 
 
 	// private
-	public PostCardResponse(Post post,String userId, String nickName, String profileImg) {
+	public PostCardResponse(Post post,String userId, String nickName, String profileImg,String thumbImg) {
 		this.postSeq = post.getPostSeq();
 		this.postTitle = post.getPostTitle();
 		this.postDate = post.getCreatedAt();
@@ -36,9 +37,10 @@ public class PostCardResponse {
 		this.userId = userId;
 		this.nickName = nickName;
 		this.profileImg = profileImg;
+		this.thumbImg = thumbImg;
 	}
 
-	public static PostCardResponse toResponse(Post post,String userId, String nickName, String profileImg) {
+	public static PostCardResponse toResponse(Post post,String userId, String nickName, String profileImg,String thumbImg) {
 		return PostCardResponse.builder()
 			.postSeq(post.getPostSeq())
 			.postTitle(post.getPostTitle())
@@ -47,6 +49,7 @@ public class PostCardResponse {
 			.userId(userId)
 			.nickName(nickName)
 			.profileImg(profileImg)
+			.thumbImg(thumbImg)
 			.build();
 	}
 
