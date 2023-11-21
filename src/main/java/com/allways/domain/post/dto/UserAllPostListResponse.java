@@ -15,7 +15,7 @@ import lombok.Setter;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class MngtPostResponse {
+public class UserAllPostListResponse {
 
 	private Long postSeq;
 	private String postTitle;
@@ -26,8 +26,8 @@ public class MngtPostResponse {
 	private String themeName;
 
 
-	public static MngtPostResponse toDto(Post post) {
-		return MngtPostResponse.builder()
+	public static UserAllPostListResponse toDto(Post post) {
+		return UserAllPostListResponse.builder()
 			.postSeq(post.getPostSeq())
 			.postTitle(post.getPostTitle())
 			.postContent(post.getPostContent())

@@ -17,7 +17,7 @@ public class ThemeQueryController {
 
     public final ThemeService themeService;
 
-    @GetMapping("/api/themes/{userSeq}")
+    @GetMapping("/api/theme/{userSeq}")
     @ResponseStatus(HttpStatus.OK)
     public List<Theme> readThemes(@PathVariable Long userSeq){
         return themeService.readThemes(userSeq);

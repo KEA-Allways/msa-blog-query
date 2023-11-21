@@ -12,18 +12,15 @@ import javax.validation.Valid;
 
 @RestController
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:3000")
 public class CategoryQueryController {
 
     private final CategoryQueryService categoryQueryService;
 
-    @GetMapping("/api/themes/{themeSeq}/categories")
+    @GetMapping("/api/theme/{themeSeq}/category")
     @ResponseStatus(HttpStatus.OK)
-    public Response readAll(@Valid CategoryReadRequest req){
-        System.out.println("controller req :" + req);
+    public Response readAll(CategoryReadRequest req){
         return Response.success(categoryQueryService.readAll(req));
     }
-
 
     @GetMapping("/api/categories/{categorySeq}")
     @ResponseStatus(HttpStatus.OK)

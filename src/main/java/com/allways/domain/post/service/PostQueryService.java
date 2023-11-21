@@ -14,7 +14,7 @@ import com.allways.common.feign.user.dto.UserFeignResponse;
 import com.allways.common.feign.user.UserFeignService;
 import com.allways.common.feign.user.dto.UserByPostFeignRequest;
 import com.allways.common.feign.user.dto.UserByPostResponse;
-import com.allways.domain.post.dto.MngtPostResponse;
+import com.allways.domain.post.dto.UserAllPostListResponse;
 import com.allways.domain.post.dto.PostCardResponse;
 import com.allways.domain.post.dto.PostResponse;
 import com.allways.domain.post.entity.Post;
@@ -52,7 +52,7 @@ public class PostQueryService {
 		//file feign 추가하기
 		// thumbImg, profileImg
 		String thumbImg = "https://allways-image.s3.ap-northeast-2.amazonaws.com/test-img/main-img/thailand.jpg";
-		String profileImg = "https://allways-image.s3.ap-northeast-2.amazonaws.com/test-img/main-img/thailand.jpg";
+		String profileImg = "https://allways-image.s3.ap-northeast-2.amazonaws.com/test-img/icon/jessie.png";
 
 		List<PostCardResponse> postCardResponse = new ArrayList<>();
 
@@ -60,7 +60,7 @@ public class PostQueryService {
 			for (UserByPostResponse userByPostResponse : userByPostResponseList) {
 				if (post.getPostSeq() == userByPostResponse.getPostSeq()) {
 					postCardResponse.add(new PostCardResponse(post, userByPostResponse.getUserId(),
-						userByPostResponse.getNickname(), profileImg));
+						userByPostResponse.getNickname(), profileImg,thumbImg));
 				}
 			}
 		}
@@ -84,12 +84,12 @@ public class PostQueryService {
 
 
 	@Transactional
-	public Page<MngtPostResponse> readAllPosts(Long userSeq, Pageable pageable) {
+	public Page<UserAllPostListResponse> readAllPosts(Long userSeq, Pageable pageable) {
 
 		//프론트 페이지는 1번부터 백엔드에서 pageable 객체는 0번 인덱스 부터 시작하기 때문에 프론트에서 넘어오는 페이지 값의 1을 빼야한다.!
 		pageable = PageRequest.of(pageable.getPageNumber()-1, pageable.getPageSize());
 		Page<Post> posts = postQueryRepository.findAllByUserSeq(userSeq, pageable);
-		Page<MngtPostResponse> postResponse = posts.map(m -> MngtPostResponse.toDto(m));
+		Page<UserAllPostListResponse> postResponse = posts.map(m -> UserAllPostListResponse.toDto(m));
 
 		return postResponse;
 	}
@@ -104,11 +104,12 @@ public class PostQueryService {
 		String nickname = userFeignResponse.getNickname();
 
 		//msa-file-query open feign
-		String profileImg = "open fegin";
+		String thumbImg = "https://allways-image.s3.ap-northeast-2.amazonaws.com/test-img/main-img/thailand.jpg";
+		String profileImg = "https://allways-image.s3.ap-northeast-2.amazonaws.com/test-img/icon/jessie.png";
 
 		pageable = PageRequest.of(pageable.getPageNumber()-1, pageable.getPageSize());
 		Page<Post> posts = postQueryRepository.findAllByUserSeqAndCategory_CategorySeqOrderByCreatedAt(userSeq,categorySeq,pageable);
-		Page<PostCardResponse> postResponse = posts.map(m -> PostCardResponse.toResponse(m,userId,nickname,profileImg));
+		Page<PostCardResponse> postResponse = posts.map(m -> PostCardResponse.toResponse(m,userId,nickname,profileImg,thumbImg));
 
 		return postResponse;
 
