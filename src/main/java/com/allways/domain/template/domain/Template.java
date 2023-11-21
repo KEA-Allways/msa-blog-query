@@ -23,14 +23,19 @@ public class Template extends EntityDate {
 	private Long templateSeq;
 
 	@Column
-	private String templateName;
+	private String templateTitle;
 
 	@Column
 	@Lob
 	private String templateContent;
 
-	// @ManyToOne(fetch = FetchType.LAZY)
-	// @JoinColumn(name = "theme_seq")
-	// private User user;
+	@Column(nullable = false)
+	private Long userSeq;
 
+	// 안쓰면 지워도 됨 나중에 필요할까봐 냅둠
+	public Template(String templateTitle, String templateContent, Long userSeq) {
+		this.templateTitle = templateTitle;
+		this.templateContent = templateContent;
+		this.userSeq = userSeq;
+	}
 }

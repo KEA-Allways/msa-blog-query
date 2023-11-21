@@ -10,7 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import com.allways.common.EntityDate;
-import com.allways.domain.theme.domain.Theme;
+import com.allways.domain.theme.entity.Theme;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -21,18 +21,28 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Category extends EntityDate  {
 
-	@Id@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long categorySeq;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long categorySeq;
 
-	@Column
-	private String categoryName;
+    @Column
+    private String categoryName;
 
-	@Column
-	private Long categoryOrder;
+    @Column
+    private Long categoryOrder;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "theme_seq")
-	private Theme theme;
+    @Column(name = "theme_seq" ,insertable = false, updatable = false)
+    private Long themeSeq;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "theme_seq", nullable = false)
+    private Theme theme;
+
+    public Category(String categoryName, Long categoryOrder, Long themeSeq) {
+        this.categoryName = categoryName;
+        this.categoryOrder = categoryOrder;
+        this.themeSeq = themeSeq;
+    }
 
 
 }
