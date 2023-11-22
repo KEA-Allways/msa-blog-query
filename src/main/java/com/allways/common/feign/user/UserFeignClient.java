@@ -7,6 +7,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import com.allways.common.feign.user.dto.UserByPostFeignRequest;
+import com.allways.common.feign.user.dto.UserByPostResponse;
+import com.allways.common.feign.user.dto.UserFeignResponse;
+
 @FeignClient(name = "msa-user-query", url ="http://localhost:8084/api/users/feign" )
 public interface UserFeignClient {
 

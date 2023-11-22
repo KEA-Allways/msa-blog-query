@@ -13,5 +13,7 @@ import com.allways.domain.post.entity.Post;
 public interface PostQueryRepository extends JpaRepository<Post, Long> {
 	List<Post> findTop10ByOrderByCreatedAtAsc();
 	Page<Post> findAllByUserSeq(Long userSeq,Pageable pageable);
-	Page<Post> findAllByUserSeqAndCategory(Long userSeq,Long categorySeq,Pageable pageable);
+	Page<Post> findAllByUserSeqAndCategory_CategorySeqOrderByCreatedAt(Long userSeq,Long categorySeq,Pageable pageable);
+
+
 }

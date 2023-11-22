@@ -15,7 +15,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ReplyDto {
+public class ReplyResponse {
 
     private Long replySeq;
     private String replyContent;
@@ -24,10 +24,10 @@ public class ReplyDto {
     private LocalDateTime createdAt;
     //private List<ReplyDto> children;  //댓글의 댓글 기능 주석 처리
 
-    public static List<ReplyDto> toDtoList(List<Reply> replies) {
+    public static List<ReplyResponse> toDtoList(List<Reply> replies) {
         NestedConvertHelper helper = NestedConvertHelper.newInstance(
                 replies,
-                c -> new ReplyDto(
+                c -> new ReplyResponse(
                         c.getReplySeq()
                         , c.isDeleted() ? null : c.getReplyContent()
                         //, c.isDeleted() ? null : MemberDto.toDto(c.getMember())   //추후에 주석 해제 필요
