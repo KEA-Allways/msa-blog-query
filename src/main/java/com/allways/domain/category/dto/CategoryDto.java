@@ -19,6 +19,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CategoryDto {
+    private Long categorySeq;
     private String categoryName;
     private Long categoryOrder;
     private String themeName;
@@ -28,6 +29,7 @@ public class CategoryDto {
 
         for(Category category : categories){
             CategoryDto dto = new CategoryDto();
+            dto.setCategorySeq(category.getCategorySeq());
             dto.setCategoryName(category.getCategoryName());
             dto.setCategoryOrder(category.getCategoryOrder());
             dto.setThemeName(category.getTheme().getThemeName());
@@ -40,6 +42,7 @@ public class CategoryDto {
 
     public static CategoryDto toDto(Category category){
         return new CategoryDto(
+                category.getCategorySeq(),
                 category.getCategoryName(),
                 category.getCategoryOrder(),
                 category.getTheme().getThemeName()

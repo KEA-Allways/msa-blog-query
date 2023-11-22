@@ -16,4 +16,7 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
     List<Category> findAllCategoriesWithThemesByThemeSeq(@Param("themeSeq") Long themeSeq);
 
     Optional<Category> findByCategorySeq(Long categorySeq);
+
+    @Query("select COALESCE(max(categoryOrder), 0) from Category c where c.themeSeq = :themeSeq")
+    Long readLastCategoryOrderByThemeSeq(@Param("themeSeq") Long themeSeq);
 }

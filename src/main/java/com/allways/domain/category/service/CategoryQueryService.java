@@ -17,6 +17,8 @@ import java.util.List;
 public class CategoryQueryService {
     public final CategoryRepository categoryRepository;
 
+
+
     public List<CategoryDto> readAll(CategoryReadRequest req) {
         return CategoryDto.toDtoList(
                 categoryRepository.findAllCategoriesWithThemesByThemeSeq(req.getThemeSeq())
@@ -24,9 +26,17 @@ public class CategoryQueryService {
     }
 
     public CategoryDto readOne(Long categorySeq){
-        Category category = categoryRepository.findByCategorySeq(categorySeq).orElseThrow(TemplateNotFoundException::new);
+        Category category = categoryRepository.findByCategorySeq(categorySeq)
+                .orElseThrow(TemplateNotFoundException::new);
 
         return CategoryDto.toDto(category);
+    }
+
+    @Transactional
+    public Long readLastCategoryOrderByThemeSeq(Long themeSeq){
+        Long lastOrder = categoryRepository.readLastCategoryOrderByThemeSeq(themeSeq);
+        lastOrder += 1;
+        return lastOrder;
     }
 
 }
