@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class CategoryFeignController {
     private final CategoryQueryService categoryQueryService;
 
-    @GetMapping("/api/categories/feign/readCategoryOrder/{themeSeq}")
+    @GetMapping("/api/category/feign/readCategoryOrder/{themeSeq}")
     @ResponseStatus(HttpStatus.OK)
     public Long readLastCategoryOrderByThemeSeq(@PathVariable Long themeSeq){
         return categoryQueryService.readLastCategoryOrderByThemeSeq(themeSeq);

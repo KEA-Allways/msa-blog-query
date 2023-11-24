@@ -1,5 +1,6 @@
 package com.allways.domain.theme.controller;
 
+import com.allways.domain.theme.dto.UserAllThemesAndCategoriesResponse;
 import com.allways.domain.theme.entity.Theme;
 import com.allways.domain.theme.service.ThemeService;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +22,12 @@ public class ThemeQueryController {
     @ResponseStatus(HttpStatus.OK)
     public List<Theme> readThemes(@PathVariable Long userSeq){
         return themeService.readThemes(userSeq);
+    }
+
+    @GetMapping("/api/theme/list/{userSeq}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<UserAllThemesAndCategoriesResponse> readAllThemesAndCategories(@PathVariable Long userSeq){
+        return themeService.readAllThemesAndCategories(userSeq);
     }
 
 }
