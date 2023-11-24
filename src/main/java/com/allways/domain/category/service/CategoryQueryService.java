@@ -19,10 +19,8 @@ public class CategoryQueryService {
 
 
 
-    public List<CategoryDto> readAll(CategoryReadRequest req) {
-        return CategoryDto.toDtoList(
-                categoryRepository.findAllCategoriesWithThemesByThemeSeq(req.getThemeSeq())
-        );
+    public List<Category> readAll(Long themeSeq) {
+        return categoryRepository.findAllCategoriesWithThemesByThemeSeq(themeSeq);
     }
 
     public CategoryDto readOne(Long categorySeq){

@@ -18,11 +18,11 @@ public class CategoryQueryController {
 
     @GetMapping("/api/theme/{themeSeq}/category")
     @ResponseStatus(HttpStatus.OK)
-    public Response readAll(CategoryReadRequest req){
-        return Response.success(categoryQueryService.readAll(req));
+    public Response readAll(@PathVariable Long themeSeq){
+        return Response.success(categoryQueryService.readAll(themeSeq));
     }
 
-    @GetMapping("/api/categories/{categorySeq}")
+    @GetMapping("/api/category/{categorySeq}")
     @ResponseStatus(HttpStatus.OK)
     public Response readOne(@PathVariable Long categorySeq){
         return Response.success(categoryQueryService.readOne(categorySeq));
