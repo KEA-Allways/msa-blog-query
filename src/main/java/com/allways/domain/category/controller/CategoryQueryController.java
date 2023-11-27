@@ -12,6 +12,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequiredArgsConstructor
+@CrossOrigin(originPatterns = "http://localhost:3000")
 public class CategoryQueryController {
 
     private final CategoryQueryService categoryQueryService;

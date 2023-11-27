@@ -27,6 +27,7 @@ public class PostQueryController {
 	@ResponseStatus(HttpStatus.OK)
 	public Response readMainPosts() {
 		List<PostCardResponse> postCardResponse = postQueryService.readMainPosts();
+		System.out.println(postCardResponse);
 		return Response.success(postCardResponse);
 	}
 

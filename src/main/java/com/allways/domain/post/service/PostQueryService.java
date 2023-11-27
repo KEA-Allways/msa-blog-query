@@ -39,13 +39,14 @@ public class PostQueryService {
 
 		List<Post> posts = postQueryRepository.findTop10ByOrderByCreatedAtAsc();
 
-		List<UserByPostFeignRequest> userFeignList = new ArrayList<>();
+		List<UserByPostFeignRequest> userFeignList = new ArrayList<>(); // [postSeq, userSeq] 10개
 
 		for (Post post : posts) {
 			UserByPostFeignRequest userByPostFeignRequest = new UserByPostFeignRequest(post.getPostSeq(), post.getUserSeq());
 			userFeignList.add(userByPostFeignRequest);
 		}
 
+		// postSeq userSeq userId nickname
 		//user feign userid, nickname
 		List<UserByPostResponse> userByPostResponseList = userFeignService.queryUsersByPost(userFeignList);
 
@@ -53,6 +54,7 @@ public class PostQueryService {
 		// thumbImg, profileImg
 		String thumbImg = "https://allways-image.s3.ap-northeast-2.amazonaws.com/test-img/main-img/thailand.jpg";
 		String profileImg = "https://allways-image.s3.ap-northeast-2.amazonaws.com/test-img/icon/jessie.png";
+
 
 		List<PostCardResponse> postCardResponse = new ArrayList<>();
 
