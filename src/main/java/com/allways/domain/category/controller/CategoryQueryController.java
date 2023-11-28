@@ -22,7 +22,7 @@ public class CategoryQueryController {
         return Response.success(categoryQueryService.readAll(req));
     }
 
-    @GetMapping("/api/categories/{categorySeq}")
+    @GetMapping("/api/category/{categorySeq}")
     @ResponseStatus(HttpStatus.OK)
     public Response readOne(@PathVariable Long categorySeq){
         return Response.success(categoryQueryService.readOne(categorySeq));
