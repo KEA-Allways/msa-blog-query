@@ -1,7 +1,6 @@
 package com.allways.common.feign.filedb;
 
 import com.allways.common.feign.user.dto.UserByPostFeignRequest;
-import com.allways.common.feign.user.dto.UserByPostResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +17,10 @@ public class FileFeignService {
 
     public List<FileFeignResponse> queryImageUrlByPost(List<UserByPostFeignRequest> urlByPostFeignRequestList) {
         return fileFeignClient.queryImageUrlByPost(urlByPostFeignRequestList);
+    }
 
+    public FileFeignResponse queryThumbnailUrlByPost(UserByPostFeignRequest fileFeignRequest){
+        return fileFeignClient.queryThumbnailUrlByPost(fileFeignRequest);
     }
 
 

@@ -90,11 +90,11 @@ public class PostQueryService {
 		Post post = postQueryRepository.findById(postSeq).orElseThrow(PostNotFoundException::new);
 
 		UserFeignResponse userFeignResponse = userFeignService.queryUser(post.getUserSeq());
+		UserByPostFeignRequest fileFeignRequest = new UserByPostFeignRequest(postSeq, post.getUserSeq());
+		FileFeignResponse fileFeignResponse = fileFeignService.queryThumbnailUrlByPost(fileFeignRequest);
 		postFeignService.increasePostView(postSeq);
 
-		PostResponse postResponse = new PostResponse(
-				post,userFeignResponse
-		);
+		PostResponse postResponse = new PostResponse(post, userFeignResponse, fileFeignResponse);
 
 		return postResponse;
 	}
