@@ -23,6 +23,7 @@ public class PostResponse {
 
 	private String categoryName;
 	private String themeName;
+	private Long themeSeq;
 
 	private String userId;
 	private Long userSeq;
@@ -40,6 +41,7 @@ public class PostResponse {
 		this.postView = post.getPostView();
 		this.categoryName = post.getCategory().getCategoryName();
 		this.themeName = post.getCategory().getTheme().getThemeName();
+		this.themeSeq = post.getCategory().getTheme().getThemeSeq();
 
 		this.userSeq = post.getUserSeq();
 		this.userId = userFeignResponse.getUserId();
