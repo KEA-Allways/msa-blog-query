@@ -14,8 +14,6 @@ import com.allways.common.feign.user.dto.UserFeignResponse;
 @FeignClient(name = "msa-user-query", url ="http://localhost:8084/api/users/feign" )
 public interface UserFeignClient {
 
-
-	//
 	@PostMapping
 	List<UserByPostResponse> queryUsersByPost(@RequestBody List<UserByPostFeignRequest> userByPostFeignRequestList);
 
