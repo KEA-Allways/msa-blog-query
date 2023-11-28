@@ -2,6 +2,7 @@ package com.allways.common.feign.filedb;
 
 
 import com.allways.common.feign.user.dto.UserByPostFeignRequest;
+import com.allways.common.feign.user.dto.UserByReplyFeignRequest;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,6 +18,8 @@ public interface FileFeignClient {
     @PostMapping("/receive_thumbnail")
     FileFeignResponse queryThumbnailUrlByPost(@RequestBody UserByPostFeignRequest fileFeignRequest);
 
+    @PostMapping("/receive_profile")
+    List<FileFeignReplyResponse> queryImageUrlByReply(@RequestBody List<UserByReplyFeignRequest> userByReplyFeignRequestList);
 
 }
 
