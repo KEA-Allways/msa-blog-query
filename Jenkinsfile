@@ -105,7 +105,7 @@ pipeline {
                 sh 'ssh -o StrictHostKeyChecking=no ${username}@${ip} "whoami"'
 
                 sh "ssh -o StrictHostKeyChecking=no ${username}@${ip} 'docker ps -f name=${springname} -q | xargs --no-run-if-empty docker container stop'"
-                sh "ssh -o StrictHostKeyChecking=no ${username}@${ip} 'docker container ls -a -fname={springname} -q | xargs --no-run-if-empty docker container rm'"
+                sh "ssh -o StrictHostKeyChecking=no ${username}@${ip} 'docker container ls -a -fname=${springname} -q | xargs --no-run-if-empty docker container rm'"
                 sh "ssh -o StrictHostKeyChecking=no ${username}@${ip} 'docker images -f reference=${imagename}:${tagname} -q | xargs --no-run-if-empty docker image rmi'"
 
                 sh "ssh -o StrictHostKeyChecking=no ${username}@${ip} 'docker pull ${imagename}:${tagname}'"
