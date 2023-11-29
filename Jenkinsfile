@@ -100,12 +100,14 @@ pipeline {
             echo 'Run Container on Dev Server'
             
             sshagent(['ec2-ssh']) {
-            
+
+
                 sh 'ssh -o StrictHostKeyChecking=no ${username}@${ip} "whoami"'
 
-                sh "ssh -o StrictHostKeyChecking=no ${username}@${ip} 'docker stop ${springname}'"
-                sh "ssh -o StrictHostKeyChecking=no ${username}@${ip} 'docker rm ${springname}'"
-                sh "ssh -o StrictHostKeyChecking=no ${username}@${ip} 'docker rmi ${imagename}:${tagname}'"
+
+                sh 'docker ps -f name=${springname} -q | xargs --no-run-if-empty docker container stop'
+                sh 'docker container ls -a -fname=${springname} -q | xargs -r docker container rm'
+                sh 'xargs --no-run-if-empty docker image prune'
 
                 sh "ssh -o StrictHostKeyChecking=no ${username}@${ip} 'docker pull ${imagename}:${tagname}'"
                 sh "ssh -o StrictHostKeyChecking=no ${username}@${ip} 'docker run -d -p 81:${port} -p ${port}:${port} --name ${springname} ${imagename}:${tagname}'"
