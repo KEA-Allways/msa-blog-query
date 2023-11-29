@@ -23,6 +23,7 @@ public class ReplyResponse {
     private String userId;
     private String nickname;
     private String profileImg;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
     private LocalDateTime createdAt;
 
 

@@ -6,6 +6,7 @@ import com.allways.common.feign.filedb.FileFeignResponse;
 import com.allways.common.feign.user.dto.UserFeignResponse;
 import com.allways.domain.post.entity.Post;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,6 +20,8 @@ public class PostResponse {
 	private String postTitle;
 	private String postContent;
 	private Integer postView;
+
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
 	private LocalDateTime postDate;
 
 	private String categoryName;

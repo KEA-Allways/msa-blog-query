@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import com.allways.common.Constants;
 import com.allways.domain.post.entity.Post;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
 @Getter
@@ -20,6 +21,7 @@ public class PostCardResponse {
 	private String userId;
 	private String nickName;
 
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
 	private LocalDateTime postDate;
 
 	private String profileImg;

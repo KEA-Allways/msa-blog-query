@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 import com.allways.domain.post.entity.Post;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -21,6 +22,7 @@ public class UserAllPostListResponse {
 	private String postTitle;
 	private String postContent;
 	private Integer postView;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
 	private LocalDateTime postDate;
 	private String categoryName;
 	private String themeName;
