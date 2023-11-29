@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: blog-query-service
+  datasource:
+    url: jdbc:mysql://3.80.230.96/command?allowPublicKeyRetrieval=true&useSSL=false
+    driver-class-name: org.mariadb.jdbc.Driver
+    username: root
+    password: 1234
+  jpa:
+    database: mysql
+    open-in-view: false
+    show-sql: true
+    hibernate:
+      properties:
+        hibernate:
+          format_sql: true
+server:
+  port: 8086
+# port: 0
+
+eureka:
+  instance:
+    #    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${server.port}}
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://54.87.40.18:8761/eureka
