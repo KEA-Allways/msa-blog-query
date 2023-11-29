@@ -5,14 +5,12 @@ import java.time.LocalDateTime;
 import com.allways.common.Constants;
 import com.allways.domain.post.entity.Post;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@Data
 @Builder
 public class PostCardResponse {
 	private Long postSeq;
@@ -29,15 +27,14 @@ public class PostCardResponse {
 
 
 	// private
-	public PostCardResponse(Post post,String userId, String nickName, String profileImg,String thumbImg) {
+	public PostCardResponse(Post post,String userId, String nickName ) {
 		this.postSeq = post.getPostSeq();
 		this.postTitle = post.getPostTitle();
 		this.postDate = post.getCreatedAt();
 		this.subTitle = generateSubtitleFromContent(post.getPostContent(), Constants.SUBTITLE_LENGTH);
 		this.userId = userId;
 		this.nickName = nickName;
-		this.profileImg = profileImg;
-		this.thumbImg = thumbImg;
+
 	}
 
 	public static PostCardResponse toResponse(Post post,String userId, String nickName, String profileImg,String thumbImg) {
