@@ -105,9 +105,9 @@ pipeline {
                 sh 'ssh -o StrictHostKeyChecking=no ${username}@${ip} "whoami"'
 
 
-                sh 'docker ps -f name=${springname} -q | xargs --no-run-if-empty docker container stop'
-                sh 'docker container ls -a -fname=${springname} -q | xargs -r docker container rm'
-                sh 'xargs --no-run-if-empty docker image prune'
+                sh 'xargs --no-run-if-empty docker stop ${springname}'
+                sh 'xargs --no-run-if-empty docker rm ${springname}'
+                sh 'xargs --no-run-if-empty docker ${imagename}:${tagname}'
 
                 sh "ssh -o StrictHostKeyChecking=no ${username}@${ip} 'docker pull ${imagename}:${tagname}'"
                 sh "ssh -o StrictHostKeyChecking=no ${username}@${ip} 'docker run -d -p 81:${port} -p ${port}:${port} --name ${springname} ${imagename}:${tagname}'"
