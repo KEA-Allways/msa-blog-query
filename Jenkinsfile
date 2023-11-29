@@ -104,6 +104,10 @@ pipeline {
 
                 sh 'ssh -o StrictHostKeyChecking=no ${username}@${ip} "whoami"'
 
+                sh 'docker ps -f name=${springname}| xargs --no-run-if-empty docker stop ${springname}'
+                sh 'docker container ls -a -fname=${springname}| xargs -r docker rm ${springname}'
+                sh 'docker images -f reference=${imagename}:${tagname} -q | xargs --no-run-if-empty docker rmi ${imagename}:${tagname}'
+
                 sh 'xargs --no-run-if-empty docker stop ${springname}'
                 sh 'xargs --no-run-if-empty docker rm ${springname}'
                 sh 'xargs --no-run-if-empty docker rmi ${imagename}:${tagname}'
