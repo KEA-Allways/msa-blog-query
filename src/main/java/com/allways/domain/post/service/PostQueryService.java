@@ -40,7 +40,7 @@ public class PostQueryService {
 	@Transactional
 	public List<PostCardResponse> readMainPosts() {
 
-		List<Post> posts = postQueryRepository.findTop10ByOrderByCreatedAtDesc();
+		List<Post> posts = postQueryRepository.findTop12ByOrderByCreatedAtDesc();
 
 		List<UserByPostFeignRequest> userFeignList = new ArrayList<>(); // [postSeq, userSeq] 10개
 

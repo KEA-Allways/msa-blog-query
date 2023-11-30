@@ -6,10 +6,7 @@ import com.allways.domain.theme.entity.Theme;
 import com.allways.domain.theme.service.ThemeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,15 +19,22 @@ public class ThemeQueryController {
     //특정 유저의 테마 목록 조회
     @GetMapping("/api/theme/{userSeq}")
     @ResponseStatus(HttpStatus.OK)
-    public Response readThemes (@PathVariable Long userSeq){
+    public Response readThemes (@RequestHeader(value = "userSeq") Long userSeq){
         List<Theme> theme = themeService.readThemes(userSeq);
         return Response.success(theme);
     }
 
     //특정 유저의 테마 및 카테고리 목록 조회
+    @GetMapping("/api/theme/list")
+    @ResponseStatus(HttpStatus.OK)
+    public Response readAllThemesAndCategories(@RequestHeader(value = "userSeq") Long userSeq){
+        List<UserAllThemesAndCategoriesResponse> themesAndCategoriesResponse = themeService.readAllThemesAndCategories(userSeq);
+        return Response.success(themesAndCategoriesResponse);
+    }
+
     @GetMapping("/api/theme/list/{userSeq}")
     @ResponseStatus(HttpStatus.OK)
-    public Response readAllThemesAndCategories(@PathVariable Long userSeq){
+    public Response readAllThemesAndCategoriesByURL(@PathVariable Long userSeq){
         List<UserAllThemesAndCategoriesResponse> themesAndCategoriesResponse = themeService.readAllThemesAndCategories(userSeq);
         return Response.success(themesAndCategoriesResponse);
     }

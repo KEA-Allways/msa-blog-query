@@ -11,7 +11,7 @@ import org.springframework.data.jpa.repository.Query;
 import com.allways.domain.post.entity.Post;
 
 public interface PostQueryRepository extends JpaRepository<Post, Long> {
-	List<Post> findTop10ByOrderByCreatedAtDesc();
+	List<Post> findTop12ByOrderByCreatedAtDesc();
 	Page<Post> findAllByUserSeq(Long userSeq,Pageable pageable);
 	Page<Post> findAllByUserSeqAndCategory_CategorySeqOrderByCreatedAt(Long userSeq,Long categorySeq,Pageable pageable);
 
