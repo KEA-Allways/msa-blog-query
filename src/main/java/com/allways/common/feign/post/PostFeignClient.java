@@ -4,7 +4,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-@FeignClient(name = "msa-post-command", url ="${post-command-feign-url}" )
+@FeignClient(name = "msa-post-command", url ="${env.post-command-feign-url}" )
 public interface PostFeignClient {
 
 	@PostMapping("/post/post-view/{postView}")
