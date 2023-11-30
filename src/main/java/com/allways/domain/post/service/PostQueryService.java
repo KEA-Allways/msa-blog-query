@@ -3,8 +3,8 @@ package com.allways.domain.post.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.allways.common.feign.filedb.FileFeignResponse;
-import com.allways.common.feign.filedb.FileFeignService;
+import com.allways.common.feign.fastApi.FileFeignResponse;
+import com.allways.common.feign.fastApi.FileFeignService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;

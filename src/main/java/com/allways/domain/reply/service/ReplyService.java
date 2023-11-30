@@ -1,7 +1,7 @@
 package com.allways.domain.reply.service;
 
-import com.allways.common.feign.filedb.FileFeignReplyResponse;
-import com.allways.common.feign.filedb.FileFeignService;
+import com.allways.common.feign.fastApi.FileFeignReplyResponse;
+import com.allways.common.feign.fastApi.FileFeignService;
 import com.allways.common.feign.user.UserFeignService;
 import com.allways.common.feign.user.dto.UserByReplyFeignRequest;
 import com.allways.common.feign.user.dto.UserByReplyResponse;

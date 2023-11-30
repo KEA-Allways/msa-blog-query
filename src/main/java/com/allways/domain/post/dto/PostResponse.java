@@ -2,7 +2,7 @@ package com.allways.domain.post.dto;
 
 import java.time.LocalDateTime;
 
-import com.allways.common.feign.filedb.FileFeignResponse;
+import com.allways.common.feign.fastApi.FileFeignResponse;
 import com.allways.common.feign.user.dto.UserFeignResponse;
 import com.allways.domain.post.entity.Post;
 

@@ -1,4 +1,4 @@
-package com.allways.common.feign.filedb;
+package com.allways.common.feign.fastApi;
 
 
 import com.allways.common.feign.user.dto.UserByPostFeignRequest;
@@ -12,13 +12,13 @@ import java.util.List;
 @FeignClient(name = "fastApi", url = "http://localhost:8001")
 public interface FileFeignClient {
 
-    @PostMapping("/receive_thumbnail_and_profile")
-    List<FileFeignResponse> queryImageUrlByPost(@RequestBody List<UserByPostFeignRequest> urlByPostFeignRequestList);
+    @PostMapping("/api/feign/post")
+    FileFeignResponse queryImageUrlByPost(@RequestBody UserByPostFeignRequest fileFeignRequest);
 
-    @PostMapping("/receive_thumbnail")
-    FileFeignResponse queryThumbnailUrlByPost(@RequestBody UserByPostFeignRequest fileFeignRequest);
+    @PostMapping("/api/feign/post/list")
+    List<FileFeignResponse> queryImageUrlListByPost(@RequestBody List<UserByPostFeignRequest> urlByPostFeignRequestList);
 
-    @PostMapping("/receive_profile")
+    @PostMapping("/api/feign/reply/list")
     List<FileFeignReplyResponse> queryImageUrlByReply(@RequestBody List<UserByReplyFeignRequest> userByReplyFeignRequestList);
 
 }

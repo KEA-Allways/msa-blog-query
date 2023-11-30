@@ -1,4 +1,4 @@
-package com.allways.common.feign.filedb;
+package com.allways.common.feign.fastApi;
 
 import com.allways.common.feign.user.dto.UserByPostFeignRequest;
 import com.allways.common.feign.user.dto.UserByReplyFeignRequest;
@@ -17,11 +17,11 @@ public class FileFeignService {
     }
 
     public List<FileFeignResponse> queryImageUrlByPost(List<UserByPostFeignRequest> urlByPostFeignRequestList) {
-        return fileFeignClient.queryImageUrlByPost(urlByPostFeignRequestList);
+        return fileFeignClient.queryImageUrlListByPost(urlByPostFeignRequestList);
     }
 
     public FileFeignResponse queryThumbnailUrlByPost(UserByPostFeignRequest fileFeignRequest){
-        return fileFeignClient.queryThumbnailUrlByPost(fileFeignRequest);
+        return fileFeignClient.queryImageUrlByPost(fileFeignRequest);
     }
 
     public List<FileFeignReplyResponse> queryImageUrlByReply(List<UserByReplyFeignRequest> userByReplyFeignRequestList) {
