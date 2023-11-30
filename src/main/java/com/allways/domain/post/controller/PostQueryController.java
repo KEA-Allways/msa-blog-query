@@ -22,11 +22,13 @@ public class PostQueryController {
 
 	private final PostQueryService postQueryService;
 
+
 	//최신순으로 10개 데이터를 조회합니다
 	@GetMapping("api/post/main")
 	@ResponseStatus(HttpStatus.OK)
 	public Response readMainPosts() {
 		List<PostCardResponse> postCardResponse = postQueryService.readMainPosts();
+		System.out.println(postCardResponse);
 		return Response.success(postCardResponse);
 	}
 

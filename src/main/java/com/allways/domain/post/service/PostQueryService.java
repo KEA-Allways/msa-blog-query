@@ -3,6 +3,8 @@ package com.allways.domain.post.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.allways.common.feign.fastApi.FileFeignResponse;
+import com.allways.common.feign.fastApi.FileFeignService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -33,37 +35,54 @@ public class PostQueryService {
 	private final PostQueryRepository postQueryRepository;
 	private final UserFeignService userFeignService;
 	private final PostFeignService postFeignService;
+	private final FileFeignService fileFeignService;
 
 	@Transactional
 	public List<PostCardResponse> readMainPosts() {
 
-		List<Post> posts = postQueryRepository.findTop10ByOrderByCreatedAtAsc();
+		List<Post> posts = postQueryRepository.findTop12ByOrderByCreatedAtDesc();
 
-		List<UserByPostFeignRequest> userFeignList = new ArrayList<>();
+		List<UserByPostFeignRequest> userFeignList = new ArrayList<>(); // [postSeq, userSeq] 10개
 
 		for (Post post : posts) {
 			UserByPostFeignRequest userByPostFeignRequest = new UserByPostFeignRequest(post.getPostSeq(), post.getUserSeq());
 			userFeignList.add(userByPostFeignRequest);
 		}
 
+		// postSeq userSeq userId nickname
 		//user feign userid, nickname
 		List<UserByPostResponse> userByPostResponseList = userFeignService.queryUsersByPost(userFeignList);
 
-		//file feign 추가하기
-		// thumbImg, profileImg
-		String thumbImg = "https://allways-image.s3.ap-northeast-2.amazonaws.com/test-img/main-img/thailand.jpg";
-		String profileImg = "https://allways-image.s3.ap-northeast-2.amazonaws.com/test-img/icon/jessie.png";
+		//post seq 와 user seq 보내기
+		List<FileFeignResponse> fileFeignResponsesList = fileFeignService.queryImageUrlByPost(userFeignList);
+
 
 		List<PostCardResponse> postCardResponse = new ArrayList<>();
 
 		for (Post post : posts) {
+
 			for (UserByPostResponse userByPostResponse : userByPostResponseList) {
 				if (post.getPostSeq() == userByPostResponse.getPostSeq()) {
 					postCardResponse.add(new PostCardResponse(post, userByPostResponse.getUserId(),
-						userByPostResponse.getNickname(), profileImg,thumbImg));
+							userByPostResponse.getNickname()));
+				}
+			}
+
+
+			for (FileFeignResponse fileFeignResponse : fileFeignResponsesList) {
+				if (post.getPostSeq() == fileFeignResponse.getPostSeq()) {
+					for (PostCardResponse cardResponse : postCardResponse) {
+						if (cardResponse.getPostSeq() == post.getPostSeq()) {
+							cardResponse.setThumbImg(fileFeignResponse.getThumbImg()); // Set the thumb image
+							cardResponse.setProfileImg(fileFeignResponse.getProfileImg()); // Set the user image
+						}
+					}
 				}
 			}
 		}
+
+
+
 
 		return postCardResponse;
 	}
@@ -73,11 +92,11 @@ public class PostQueryService {
 		Post post = postQueryRepository.findById(postSeq).orElseThrow(PostNotFoundException::new);
 
 		UserFeignResponse userFeignResponse = userFeignService.queryUser(post.getUserSeq());
+		UserByPostFeignRequest fileFeignRequest = new UserByPostFeignRequest(postSeq, post.getUserSeq());
+		FileFeignResponse fileFeignResponse = fileFeignService.queryThumbnailUrlByPost(fileFeignRequest);
 		postFeignService.increasePostView(postSeq);
 
-		PostResponse postResponse = new PostResponse(
-			post,userFeignResponse
-		);
+		PostResponse postResponse = new PostResponse(post, userFeignResponse, fileFeignResponse);
 
 		return postResponse;
 	}

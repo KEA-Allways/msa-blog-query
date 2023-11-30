@@ -29,7 +29,7 @@ public class PostRepositoryTest {
 	@Test
 	void findTop10ByOrderByCreatedAtDesc() {
 		// given // when
-		List<Post> posts = postQueryRepository.findTop10ByOrderByCreatedAtAsc();
+		List<Post> posts = postQueryRepository.findTop12ByOrderByCreatedAtDesc();
 
 		// then
 
