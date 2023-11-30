@@ -1,8 +1,9 @@
 package com.allways.domain.category.repository;
 
 import com.allways.domain.category.domain.Category;
-import com.allways.domain.category.dto.CategoryDto;
+
 import feign.Param;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -17,6 +18,6 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
 
     Optional<Category> findByCategorySeq(Long categorySeq);
 
-    @Query("select COALESCE(max(categoryOrder), 0) from Category c where c.themeSeq = :themeSeq")
+    @Query("select COALESCE(max(c.categoryOrder), 0) from Category c where c.themeSeq = :themeSeq")
     Long readLastCategoryOrderByThemeSeq(@Param("themeSeq") Long themeSeq);
 }
