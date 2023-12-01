@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-@FeignClient(name = "msa-user-query", url ="http://localhost:8084/api/users/feign" )
+@FeignClient(name = "msa-user-query", url ="${env.user-feign-url}" )
 public interface UserFeignClient {
 
 	@PostMapping
