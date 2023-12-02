@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
-@FeignClient(name = "fastApi", url = "${env.file-feign-url}")
+@FeignClient(name = "msa-file-query", url = "${env.file-feign-url}")
 public interface FileFeignClient {
 
     @PostMapping("/post")
