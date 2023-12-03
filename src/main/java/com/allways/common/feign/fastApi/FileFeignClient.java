@@ -9,16 +9,17 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
-@FeignClient(name = "msa-file-query", url = "${env.file-feign-url}")
+// @FeignClient(name = "fastApi", url = "${env.file-feign-url}")
+@FeignClient(name = "file-query-service")
 public interface FileFeignClient {
 
-    @PostMapping("/post")
+    @PostMapping("api/feign/post")
     FileFeignResponse queryImageUrlByPost(@RequestBody UserByPostFeignRequest fileFeignRequest);
 
-    @PostMapping("/post/list")
+    @PostMapping("api/feign/post/list")
     List<FileFeignResponse> queryImageUrlListByPost(@RequestBody List<UserByPostFeignRequest> urlByPostFeignRequestList);
 
-    @PostMapping("/reply/list")
+    @PostMapping("api/feign/reply/list")
     List<FileFeignReplyResponse> queryImageUrlByReply(@RequestBody List<UserByReplyFeignRequest> userByReplyFeignRequestList);
 
 }
