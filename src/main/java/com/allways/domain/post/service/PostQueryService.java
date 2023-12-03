@@ -101,6 +101,19 @@ public class PostQueryService {
 		return postResponse;
 	}
 
+	@Transactional
+	public PostResponse readPostDetail(Long postSeq) {
+		Post post = postQueryRepository.findById(postSeq).orElseThrow(PostNotFoundException::new);
+
+		UserFeignResponse userFeignResponse = userFeignService.queryUser(post.getUserSeq());
+		UserByPostFeignRequest fileFeignRequest = new UserByPostFeignRequest(postSeq, post.getUserSeq());
+		FileFeignResponse fileFeignResponse = fileFeignService.queryThumbnailUrlByPost(fileFeignRequest);
+
+		PostResponse postResponse = new PostResponse(post, userFeignResponse, fileFeignResponse);
+
+		return postResponse;
+	}
+
 
 	@Transactional
 	public Page<UserAllPostListResponse> readAllPosts(Long userSeq, Pageable pageable) {

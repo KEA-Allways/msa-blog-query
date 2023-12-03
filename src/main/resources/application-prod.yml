@@ -2,7 +2,7 @@ spring:
   application:
     name: blog-query-service
   datasource:
-    url: jdbc:mysql://3.80.230.96/command?allowPublicKeyRetrieval=true&useSSL=false
+    url: jdbc:mysql://3.80.230.96/USER_BLOG_DB?allowPublicKeyRetrieval=true&useSSL=false
     driver-class-name: org.mariadb.jdbc.Driver
     username: root
     password: 1234
@@ -26,7 +26,7 @@ eureka:
     register-with-eureka: true
     fetch-registry: true
     service-url:
-      defaultZone: http://54.87.40.18:8761/eureka
+      defaultZone: http://3.213.139.105:8761/eureka
 
 env:
   user-feign-url : http://44.201.129.31:8084/api/users/feign
