@@ -1,4 +1,4 @@
-package com.allways.domain.category.domain;
+package com.allways.domain.category.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -43,6 +43,4 @@ public class Category extends EntityDate  {
         this.categoryOrder = categoryOrder;
         this.themeSeq = themeSeq;
     }
-
-
 }

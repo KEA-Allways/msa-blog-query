@@ -1,4 +1,4 @@
-package com.allways.dto.template;
+package com.allways.domain.template.dto;
 
 public class TemplateReadConditionTest {
 }

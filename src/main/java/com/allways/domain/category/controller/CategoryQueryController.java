@@ -1,18 +1,15 @@
 package com.allways.domain.category.controller;
 
 import com.allways.common.response.Response;
-import com.allways.domain.category.dto.CategoryReadRequest;
 import com.allways.domain.category.service.CategoryQueryService;
+
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
-
-
 @RestController
 @RequiredArgsConstructor
-@CrossOrigin(originPatterns = "http://localhost:3000")
 public class CategoryQueryController {
 
     private final CategoryQueryService categoryQueryService;
@@ -28,6 +25,4 @@ public class CategoryQueryController {
     public Response readOne(@PathVariable Long categorySeq){
         return Response.success(categoryQueryService.readOne(categorySeq));
     }
-
-
 }

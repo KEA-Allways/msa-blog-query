@@ -1,8 +1,7 @@
 package com.allways.domain.category.service;
 
-import com.allways.domain.category.domain.Category;
+import com.allways.domain.category.entity.Category;
 import com.allways.domain.category.dto.CategoryDto;
-import com.allways.domain.category.dto.CategoryReadRequest;
 import com.allways.domain.category.repository.CategoryRepository;
 import com.allways.domain.template.exception.TemplateNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -16,8 +15,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CategoryQueryService {
     public final CategoryRepository categoryRepository;
-
-
 
     public List<Category> readAll(Long themeSeq) {
         return categoryRepository.findAllCategoriesWithThemesByThemeSeq(themeSeq);

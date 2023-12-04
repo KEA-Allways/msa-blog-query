@@ -1,7 +1,6 @@
 package com.allways.domain.category.repository;
 
-import com.allways.domain.category.domain.Category;
-import com.allways.domain.category.dto.CategoryDto;
+import com.allways.domain.category.entity.Category;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

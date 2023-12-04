@@ -1,7 +1,8 @@
 package com.allways.domain.category.dto;
 
-import com.allways.domain.category.domain.Category;
+import com.allways.domain.category.entity.Category;
 import com.fasterxml.jackson.annotation.JsonInclude;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
