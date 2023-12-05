@@ -1,6 +1,6 @@
 package com.allways.domain.template.service;
 
-import com.allways.domain.template.domain.Template;
+import com.allways.domain.template.entity.Template;
 import com.allways.domain.template.dto.*;
 import com.allways.domain.template.exception.TemplateNotFoundException;
 import com.allways.domain.template.repository.TemplateRepository;
@@ -13,7 +13,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Service
 @Transactional
-public class TemplateCommandService {
+public class TemplateQueryService {
     private final TemplateRepository templateRepository;
 
     // 선택된 templateSeq에 해당하는 template 정보 읽기

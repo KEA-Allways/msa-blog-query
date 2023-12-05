@@ -11,6 +11,6 @@ public interface ThemeRepository extends JpaRepository<Theme, Long> {
     @Query("select t from Theme t where t.userSeq = :userSeq order by t.themeOrder ASC")
     List<Theme> findThemeByUserSeqOrderByThemeOrder(@Param("userSeq") Long userSeq);
 
-    @Query("select COALESCE(max(themeOrder), 0) from Theme t where t.userSeq = :userSeq")
+    @Query("select COALESCE(max(t.themeOrder), 0) from Theme t where t.userSeq = :userSeq")
     Long readLastThemeOrderByUserSeq(@Param("userSeq") Long userSeq);
 }

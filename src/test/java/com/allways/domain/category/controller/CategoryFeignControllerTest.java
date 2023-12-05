@@ -1,6 +1,6 @@
 package com.allways.domain.category.controller;
 
-import com.allways.domain.category.service.CategoryQueryService;
+import com.allways.domain.category.service.CategoryService;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,7 +20,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @ExtendWith(MockitoExtension.class)
 public class CategoryFeignControllerTest {
-    @Mock private CategoryQueryService categoryQueryService;
+    @Mock private CategoryService categoryQueryService;
     @InjectMocks private CategoryFeignController categoryFeignController;
     private MockMvc mockMvc;
 

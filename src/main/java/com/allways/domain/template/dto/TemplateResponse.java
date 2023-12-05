@@ -1,6 +1,6 @@
 package com.allways.domain.template.dto;
 
-import com.allways.domain.template.domain.Template;
+import com.allways.domain.template.entity.Template;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

@@ -10,12 +10,10 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserByPostFeignResponse {
-
 	private Long userSeq;
 	private String userId;
 	private String password;
 	private String nickname;
 	private String email;
 	private String profileImgSeq;
-
 }

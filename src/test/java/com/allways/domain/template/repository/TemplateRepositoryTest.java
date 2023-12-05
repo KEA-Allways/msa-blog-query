@@ -1,8 +1,7 @@
 package com.allways.domain.template.repository;
 
-import com.allways.domain.template.domain.Template;
+import com.allways.domain.template.entity.Template;
 import com.allways.domain.template.factory.TemplateFactory;
-import com.allways.domain.template.repository.TemplateRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

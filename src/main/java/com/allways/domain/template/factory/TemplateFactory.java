@@ -1,6 +1,6 @@
 package com.allways.domain.template.factory;
 
-import com.allways.domain.template.domain.Template;
+import com.allways.domain.template.entity.Template;
 
 public class TemplateFactory {
     public static Template createTemplate() {

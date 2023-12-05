@@ -38,9 +38,10 @@ public class Category extends EntityDate  {
     @JoinColumn(name = "theme_seq", nullable = false)
     private Theme theme;
 
-    public Category(String categoryName, Long categoryOrder, Long themeSeq) {
+    public Category(String categoryName, Long categoryOrder, Long themeSeq, Theme theme) {
         this.categoryName = categoryName;
         this.categoryOrder = categoryOrder;
         this.themeSeq = themeSeq;
+        this.theme = theme;
     }
 }

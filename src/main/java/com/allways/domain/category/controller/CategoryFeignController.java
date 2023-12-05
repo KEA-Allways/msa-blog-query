@@ -1,6 +1,6 @@
 package com.allways.domain.category.controller;
 
-import com.allways.domain.category.service.CategoryQueryService;
+import com.allways.domain.category.service.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 public class CategoryFeignController {
-    private final CategoryQueryService categoryQueryService;
+    private final CategoryService categoryQueryService;
 
     @GetMapping("/api/category/feign/readCategoryOrder/{themeSeq}")
     @ResponseStatus(HttpStatus.OK)

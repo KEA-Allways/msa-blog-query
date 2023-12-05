@@ -14,6 +14,4 @@ public interface PostQueryRepository extends JpaRepository<Post, Long> {
 	List<Post> findTop12ByOrderByCreatedAtDesc();
 	Page<Post> findAllByUserSeq(Long userSeq,Pageable pageable);
 	Page<Post> findAllByUserSeqAndCategory_CategorySeqOrderByCreatedAt(Long userSeq,Long categorySeq,Pageable pageable);
-
-
 }

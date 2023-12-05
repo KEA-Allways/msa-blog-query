@@ -14,6 +14,7 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
     @Query("SELECT c FROM Category c LEFT JOIN FETCH c.theme t WHERE c.themeSeq = :themeSeq")
     List<Category> findAllCategoriesWithThemesByThemeSeq(@Param("themeSeq") Long themeSeq);
 
+    @Query("SELECT c FROM Category c WHERE c.categorySeq = :categorySeq")
     Optional<Category> findByCategorySeq(@Param("categorySeq") Long categorySeq);
 
     @Query("select COALESCE(max(c.categoryOrder), 0) from Category c where c.themeSeq = :themeSeq")

@@ -30,5 +30,9 @@ public class Theme extends EntityDate {
 	@Column
 	private Long userSeq;
 
-
+	public Theme(String themeName, Long themeOrder, Long userSeq) {
+		this.themeName = themeName;
+		this.themeOrder = themeOrder;
+		this.userSeq = userSeq;
+	}
 }

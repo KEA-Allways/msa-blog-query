@@ -41,15 +41,15 @@ public class PostCardResponse {
 
 	public static PostCardResponse toResponse(Post post,String userId, String nickName, String profileImg,String thumbImg) {
 		return PostCardResponse.builder()
-			.postSeq(post.getPostSeq())
-			.postTitle(post.getPostTitle())
-			.postDate(post.getCreatedAt())
-			.subTitle(generateSubtitleFromContent(post.getPostContent(), Constants.SUBTITLE_LENGTH))
-			.userId(userId)
-			.nickName(nickName)
-			.profileImg(profileImg)
-			.thumbImg(thumbImg)
-			.build();
+				.postSeq(post.getPostSeq())
+				.postTitle(post.getPostTitle())
+				.postDate(post.getCreatedAt())
+				.subTitle(generateSubtitleFromContent(post.getPostContent(), Constants.SUBTITLE_LENGTH))
+				.userId(userId)
+				.nickName(nickName)
+				.profileImg(profileImg)
+				.thumbImg(thumbImg)
+				.build();
 	}
 
 	public static String generateSubtitleFromContent(String content, int maxLength) {

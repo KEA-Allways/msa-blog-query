@@ -41,5 +41,4 @@ public class Post extends EntityDate  {
 
 	@Column
 	private Long userSeq;
-
 }

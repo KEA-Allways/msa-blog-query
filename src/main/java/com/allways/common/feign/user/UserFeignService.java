@@ -25,6 +25,4 @@ public class UserFeignService {
 	public UserFeignResponse queryUser(Long userSeq) {
 		return userFeignClient.queryUser(userSeq);
 	}
-
-
 }

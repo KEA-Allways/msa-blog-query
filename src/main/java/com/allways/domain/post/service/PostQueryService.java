@@ -56,7 +56,6 @@ public class PostQueryService {
 		//post seq 와 user seq 보내기
 		List<FileFeignResponse> fileFeignResponsesList = fileFeignService.queryImageUrlByPost(userFeignList);
 
-
 		List<PostCardResponse> postCardResponse = new ArrayList<>();
 
 		for (Post post : posts) {
@@ -67,7 +66,6 @@ public class PostQueryService {
 							userByPostResponse.getNickname()));
 				}
 			}
-
 
 			for (FileFeignResponse fileFeignResponse : fileFeignResponsesList) {
 				if (post.getPostSeq() == fileFeignResponse.getPostSeq()) {
@@ -80,9 +78,6 @@ public class PostQueryService {
 				}
 			}
 		}
-
-
-
 
 		return postCardResponse;
 	}
@@ -114,7 +109,6 @@ public class PostQueryService {
 		return postResponse;
 	}
 
-
 	@Transactional
 	public Page<UserAllPostListResponse> readAllPosts(Long userSeq, Pageable pageable) {
 
@@ -126,11 +120,8 @@ public class PostQueryService {
 		return postResponse;
 	}
 
-
 	@Transactional
 	public Page<PostCardResponse> readPostsInCategory(Long userSeq,Long categorySeq,Pageable pageable) {
-
-
 		UserFeignResponse userFeignResponse = userFeignService.queryUser(userSeq);
 		String userId = userFeignResponse.getUserId();
 		String nickname = userFeignResponse.getNickname();
@@ -144,8 +135,5 @@ public class PostQueryService {
 		Page<PostCardResponse> postResponse = posts.map(m -> PostCardResponse.toResponse(m,userId,nickname,profileImg,thumbImg));
 
 		return postResponse;
-
 	}
-
-
 }

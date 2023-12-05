@@ -13,7 +13,7 @@ import java.util.List;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class CategoryQueryService {
+public class CategoryService {
     public final CategoryRepository categoryRepository;
 
     public List<Category> readAll(Long themeSeq) {
@@ -33,5 +33,4 @@ public class CategoryQueryService {
         lastOrder += 1;
         return lastOrder;
     }
-
 }

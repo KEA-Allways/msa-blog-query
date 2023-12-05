@@ -11,5 +11,4 @@ public class FileFeignReplyResponse {
     private Long replySeq;
     private Long userSeq;
     private String profileImg;
-
 }

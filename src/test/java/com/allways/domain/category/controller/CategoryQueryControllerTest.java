@@ -2,8 +2,9 @@ package com.allways.domain.category.controller;
 
 import com.allways.domain.category.dto.CategoryDto;
 import com.allways.domain.category.entity.Category;
-import com.allways.domain.category.service.CategoryQueryService;
+import com.allways.domain.category.service.CategoryService;
 
+import com.allways.domain.theme.entity.Theme;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -25,7 +26,7 @@ import java.util.List;
 @ExtendWith(MockitoExtension.class)
 
 public class CategoryQueryControllerTest {
-    @Mock private CategoryQueryService categoryQueryService;
+    @Mock private CategoryService categoryQueryService;
     @InjectMocks private CategoryQueryController categoryQueryController;
     private MockMvc mockMvc;
 
@@ -40,10 +41,8 @@ public class CategoryQueryControllerTest {
         // Given
         Long themeSeq = 123L;
         List<Category> CategoryList = new ArrayList<>();
-        CategoryList.add(new Category(
-                "categoryName",
-                1L,
-                123L));
+        CategoryList.add(new Category("categoryName", 1L,1L,
+                new Theme("themeName", 1L, 1L)));
 
         // When
         when(categoryQueryService.readAll(themeSeq))

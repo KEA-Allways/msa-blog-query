@@ -27,19 +27,15 @@ public class UserAllPostListResponse {
 	private String categoryName;
 	private String themeName;
 
-
 	public static UserAllPostListResponse toDto(Post post) {
 		return UserAllPostListResponse.builder()
-			.postSeq(post.getPostSeq())
-			.postTitle(post.getPostTitle())
-			.postContent(post.getPostContent())
-			.postDate(post.getCreatedAt())
-			.postView(post.getPostView())
-			.categoryName(post.getCategory().getCategoryName())
-			.themeName(post.getCategory().getTheme().getThemeName())
-			.build();
+				.postSeq(post.getPostSeq())
+				.postTitle(post.getPostTitle())
+				.postContent(post.getPostContent())
+				.postDate(post.getCreatedAt())
+				.postView(post.getPostView())
+				.categoryName(post.getCategory().getCategoryName())
+				.themeName(post.getCategory().getTheme().getThemeName())
+				.build();
 	}
-
-
-
 }

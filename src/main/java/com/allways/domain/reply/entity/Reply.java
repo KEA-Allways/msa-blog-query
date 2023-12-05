@@ -30,12 +30,6 @@ public class Reply extends EntityDate  {
 	@JoinColumn(name = "post_seq", nullable = false)
 	private Post post;
 
-	//추후에 주석 해제 필요
-	// @ManyToOne(fetch = FetchType.LAZY)
-	// @JoinColumn(name = "user_seq", nullable = false)
-	// private User user;
-
-	//user 없이 임시로 둔 것
 	@Column
 	private Long userSeq;
 
@@ -49,11 +43,7 @@ public class Reply extends EntityDate  {
 
 	public Reply(String content, Post post, Long UserSeq) {
 		this.replyContent = content;
-		//this.member = member;	//추후에 주석 해제 필요
 		this.post = post;
 		this.userSeq = UserSeq;
-		this.parent = parent;
-//		this.deleted = false;
-
 	}
 }

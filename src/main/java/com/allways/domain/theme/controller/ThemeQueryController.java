@@ -38,5 +38,4 @@ public class ThemeQueryController {
         List<UserAllThemesAndCategoriesResponse> themesAndCategoriesResponse = themeService.readAllThemesAndCategories(userSeq);
         return Response.success(themesAndCategoriesResponse);
     }
-
 }

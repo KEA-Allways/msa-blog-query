@@ -1,4 +1,4 @@
-package com.allways.domain.template.domain;
+package com.allways.domain.template.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

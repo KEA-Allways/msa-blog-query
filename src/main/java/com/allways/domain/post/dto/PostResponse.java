@@ -53,6 +53,4 @@ public class PostResponse {
 		this.profileImg = fileFeignResponse.getProfileImg();
 		this.thumbImg = fileFeignResponse.getThumbImg();
 	}
-
-
 }
