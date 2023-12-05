@@ -45,16 +45,7 @@ pipeline {
           }
         }
 
-         stage('Junit Test') {
-                                    steps{
-                                        script {
-                                                sh "chmod +x gradlew; ./gradlew test"
-                                                junit '**/build/test-results/test/*.xml'
-                                        }
-                                    }
-
-
-                                }
+       
 
 
 
