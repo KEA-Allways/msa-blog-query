@@ -14,16 +14,17 @@ spring:
       properties:
         hibernate:
           format_sql: true
-          
+
 server:
   port: 8086
+  host: ${app.server.host:localhost}
 # port: 0
 
 eureka:
   instance:
     #    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
     instance-id: ${spring.application.name}:${spring.application.instance_id:${server.port}}
-    hostname: 54.226.161.141 #
+    hostname: ${server.host} #
   client:
     register-with-eureka: true
     fetch-registry: true
