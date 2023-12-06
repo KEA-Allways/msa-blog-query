@@ -22,11 +22,13 @@ public class PostQueryController {
 
 	private final PostQueryService postQueryService;
 
+
 	//최신순으로 10개 데이터를 조회합니다
 	@GetMapping("api/post/main")
 	@ResponseStatus(HttpStatus.OK)
 	public Response readMainPosts() {
 		List<PostCardResponse> postCardResponse = postQueryService.readMainPosts();
+		System.out.println(postCardResponse);
 		return Response.success(postCardResponse);
 	}
 
@@ -43,6 +45,14 @@ public class PostQueryController {
 	@ResponseStatus(HttpStatus.OK)
 	public Response readPost(@PathVariable Long postSeq) {
 		PostResponse postResponse = postQueryService.readPost(postSeq);
+		return Response.success(postResponse);
+	}
+
+	//특정 게시글의 상세 정보 조회 - 게시글 수정 시
+	@GetMapping("api/post/detail/{postSeq}")
+	@ResponseStatus(HttpStatus.OK)
+	public Response readPostDetail(@PathVariable Long postSeq) {
+		PostResponse postResponse = postQueryService.readPostDetail(postSeq);
 		return Response.success(postResponse);
 	}
 

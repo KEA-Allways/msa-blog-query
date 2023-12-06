@@ -2,9 +2,11 @@ package com.allways.domain.post.dto;
 
 import java.time.LocalDateTime;
 
+import com.allways.common.feign.fastApi.FileFeignResponse;
 import com.allways.common.feign.user.dto.UserFeignResponse;
 import com.allways.domain.post.entity.Post;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,10 +20,13 @@ public class PostResponse {
 	private String postTitle;
 	private String postContent;
 	private Integer postView;
+
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
 	private LocalDateTime postDate;
 
 	private String categoryName;
 	private String themeName;
+	private Long themeSeq;
 
 	private String userId;
 	private Long userSeq;
@@ -31,7 +36,7 @@ public class PostResponse {
 	private String thumbImg;
 	private String profileImg;
 
-	public PostResponse(Post post, UserFeignResponse userFeignResponse) {
+	public PostResponse(Post post, UserFeignResponse userFeignResponse, FileFeignResponse fileFeignResponse) {
 		this.postSeq = post.getPostSeq();
 		this.postTitle = post.getPostTitle();
 		this.postContent = post.getPostContent();
@@ -39,14 +44,14 @@ public class PostResponse {
 		this.postView = post.getPostView();
 		this.categoryName = post.getCategory().getCategoryName();
 		this.themeName = post.getCategory().getTheme().getThemeName();
+		this.themeSeq = post.getCategory().getTheme().getThemeSeq();
 
 		this.userSeq = post.getUserSeq();
 		this.userId = userFeignResponse.getUserId();
 		this.nickname = userFeignResponse.getNickname();
 
-		//수정
-		this.profileImg = "profileImg";
-		this.thumbImg = "thumbImg";
+		this.profileImg = fileFeignResponse.getProfileImg();
+		this.thumbImg = fileFeignResponse.getThumbImg();
 	}
 
 
