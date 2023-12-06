@@ -38,5 +38,11 @@ public class ThemeQueryController {
         List<UserAllThemesAndCategoriesResponse> themesAndCategoriesResponse = themeService.readAllThemesAndCategories(userSeq);
         return Response.success(themesAndCategoriesResponse);
     }
+    @GetMapping("/api/theme/one/{themeSeq}")
+    @ResponseStatus(HttpStatus.OK)
+    public Response readTheme(@PathVariable Long themeSeq){
+        String themeName = themeService.readTheme(themeSeq);
+        return Response.success(themeName);
+    }
 
 }
