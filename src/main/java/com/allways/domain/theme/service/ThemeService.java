@@ -24,6 +24,10 @@ public class ThemeService {
         return themeRepository.findThemeByUserSeqOrderByThemeOrder(userSeq);
     }
 
+    public String readTheme(Long themeSeq){
+        return themeRepository.findThemeByThemeSeq(themeSeq).getThemeName();
+    }
+
     public List<UserAllThemesAndCategoriesResponse> readAllThemesAndCategories(Long userSeq) {
         List<Theme> themeList = themeRepository.findThemeByUserSeqOrderByThemeOrder(userSeq);
         List<UserAllThemesAndCategoriesResponse> themeCategories = new ArrayList<>();
