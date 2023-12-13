@@ -2,10 +2,12 @@ package com.allways.domain.post.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import com.allways.common.feign.fastApi.FileFeignResponse;
 import com.allways.common.feign.fastApi.FileFeignService;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -42,6 +44,11 @@ public class PostQueryService {
 
 		List<Post> posts = postQueryRepository.findTop12ByOrderByCreatedAtDesc();
 
+		for(Post post: posts){
+			System.out.println(post.getPostSeq());
+		}
+		System.out.println("11111111111111111");
+
 		List<UserByPostFeignRequest> userFeignList = new ArrayList<>(); // [postSeq, userSeq] 10개
 
 		for (Post post : posts) {
@@ -56,23 +63,23 @@ public class PostQueryService {
 		//post seq 와 user seq 보내기
 		List<FileFeignResponse> fileFeignResponsesList = fileFeignService.queryImageUrlByPost(userFeignList);
 
-
+		System.out.println(fileFeignResponsesList);
 		List<PostCardResponse> postCardResponse = new ArrayList<>();
 
 		for (Post post : posts) {
 
 			for (UserByPostResponse userByPostResponse : userByPostResponseList) {
-				if (post.getPostSeq() == userByPostResponse.getPostSeq()) {
+				if (Objects.equals(post.getPostSeq(), userByPostResponse.getPostSeq())) {
 					postCardResponse.add(new PostCardResponse(post, userByPostResponse.getUserId(),
 							userByPostResponse.getNickname()));
 				}
 			}
 
-
 			for (FileFeignResponse fileFeignResponse : fileFeignResponsesList) {
-				if (post.getPostSeq() == fileFeignResponse.getPostSeq()) {
+				if (Objects.equals(post.getPostSeq(), fileFeignResponse.getPostSeq())) {
+
 					for (PostCardResponse cardResponse : postCardResponse) {
-						if (cardResponse.getPostSeq() == post.getPostSeq()) {
+						if (Objects.equals(cardResponse.getPostSeq(), post.getPostSeq())) {
 							cardResponse.setThumbImg(fileFeignResponse.getThumbImg()); // Set the thumb image
 							cardResponse.setProfileImg(fileFeignResponse.getProfileImg()); // Set the user image
 						}
@@ -136,12 +143,37 @@ public class PostQueryService {
 		String nickname = userFeignResponse.getNickname();
 
 		//msa-file-query open feign
-		String thumbImg = "https://allways-image.s3.ap-northeast-2.amazonaws.com/test-img/main-img/thailand.jpg";
-		String profileImg = "https://allways-image.s3.ap-northeast-2.amazonaws.com/test-img/icon/jessie.png";
 
 		pageable = PageRequest.of(pageable.getPageNumber()-1, pageable.getPageSize());
 		Page<Post> posts = postQueryRepository.findAllByUserSeqAndCategory_CategorySeqOrderByCreatedAt(userSeq,categorySeq,pageable);
-		Page<PostCardResponse> postResponse = posts.map(m -> PostCardResponse.toResponse(m,userId,nickname,profileImg,thumbImg));
+
+
+		List<UserByPostFeignRequest> userFeignList = new ArrayList<>(); // [postSeq, userSeq] 10개
+
+		for (Post post : posts) {
+			UserByPostFeignRequest userByPostFeignRequest = new UserByPostFeignRequest(post.getPostSeq(), userSeq);
+			userFeignList.add(userByPostFeignRequest);
+		}
+
+		//post seq 와 user seq 보내기
+		List<FileFeignResponse> fileFeignResponsesList = fileFeignService.queryImageUrlByPost(userFeignList);
+		System.out.println(fileFeignResponsesList);
+		List<PostCardResponse> postCardResponse = new ArrayList<>();
+
+		for (Post post : posts) {
+			for (FileFeignResponse fileFeignResponse : fileFeignResponsesList) {
+				if(Objects.equals(post.getPostSeq(), fileFeignResponse.getPostSeq())){
+					String postProfileImg = fileFeignResponse.getProfileImg();
+					String postThumbImg = fileFeignResponse.getThumbImg();
+					PostCardResponse newCardResponse = PostCardResponse.toResponse(post, userId, nickname, postProfileImg, postThumbImg);
+					postCardResponse.add(newCardResponse);
+				}
+
+			}
+		}
+
+		Page<PostCardResponse> postResponse = new PageImpl<>(postCardResponse);
+
 
 		return postResponse;
 
