@@ -2,7 +2,7 @@ spring:
   application:
     name: blog-query-service
   datasource:
-    url: jdbc:mysql://3.80.230.96:3307/Allways_RDB?allowPublicKeyRetrieval=true&useSSL=false
+    url: jdbc:mysql://18.208.165.220:3306/Allways_RDB?allowPublicKeyRetrieval=true&useSSL=false
     driver-class-name: org.mariadb.jdbc.Driver
     username: root
     password: 1234
@@ -16,13 +16,16 @@ spring:
           format_sql: true
 server:
   port: 8086
+
 # port: 0
 
 eureka:
   instance:
     #    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
     instance-id: ${spring.application.name}:${spring.application.instance_id:${server.port}}
-    hostname: 54.226.161.141 #
+
+    hostname: 54.226.161.141
+
   client:
     register-with-eureka: true
     fetch-registry: true
