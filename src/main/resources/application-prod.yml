@@ -2,6 +2,7 @@ spring:
   application:
     name: blog-query-service
   datasource:
+
     url: jdbc:mysql://18.208.165.220:3306/Allways_RDB?allowPublicKeyRetrieval=true&useSSL=false
     driver-class-name: org.mariadb.jdbc.Driver
     username: root
