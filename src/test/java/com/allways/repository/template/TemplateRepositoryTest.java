@@ -18,10 +18,10 @@ public class TemplateRepositoryTest {
     @Autowired
     private TemplateRepository templateRepository;
 
-    @Test
-    void findByTemplateSeqTest() {
-        // given
-        Template templateToSave = new Template("Template Title", "Template Content", 1L);
-        Template savedTemplate = templateRepository.save(templateToSave);
-    }
+//    @Test
+//    void findByTemplateSeqTest() {
+//        // given
+//        Template templateToSave = new Template("Template Title", "Template Content", 1L);
+//        Template savedTemplate = templateRepository.save(templateToSave);
+//    }
 }

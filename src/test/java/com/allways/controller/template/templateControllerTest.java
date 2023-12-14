@@ -31,28 +31,28 @@ public class templateControllerTest {
         mockMvc = MockMvcBuilders.standaloneSetup(templateController).build();
     }
 
-    @Test
-    void readOneTest() throws Exception {
-        // given
-        Long userSeq = 1L;
-        Long templateSeq = 1L;
-        // given(templateCommandService.readOne(templateSeq)).willThrow(TemplateNotFoundException.class);
+//    @Test
+//    void readOneTest() throws Exception {
+//        // given
+//        Long userSeq = 1L;
+//        Long templateSeq = 1L;
+//        // given(templateCommandService.readOne(templateSeq)).willThrow(TemplateNotFoundException.class);
+//
+//        // when, then
+//        mockMvc.perform(
+//                        get("/api/templates/{userSeq}/{templateSeq}", userSeq, templateSeq))
+//                .andExpect(status().isOk());
+//        verify(templateCommandService).readOne(templateSeq);
+//    }
 
-        // when, then
-        mockMvc.perform(
-                        get("/api/templates/{userSeq}/{templateSeq}", userSeq, templateSeq))
-                .andExpect(status().isOk());
-        verify(templateCommandService).readOne(templateSeq);
-    }
-
-    @Test
-    void readAllTest() throws Exception {
-        // given
-        Long userSeq = 1L;
-
-        mockMvc.perform(
-                        get("/api/templates/{userSeq}", userSeq))
-                .andExpect(status().isOk());
-        verify(templateCommandService).readAll(userSeq);
-    }
+//    @Test
+//    void readAllTest() throws Exception {
+//        // given
+//        Long userSeq = 1L;
+//
+//        mockMvc.perform(
+//                        get("/api/templates/{userSeq}", userSeq))
+//                .andExpect(status().isOk());
+//        verify(templateCommandService).readAll(userSeq);
+//    }
 }

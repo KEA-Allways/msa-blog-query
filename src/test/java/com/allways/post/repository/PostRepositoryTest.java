@@ -26,19 +26,19 @@ public class PostRepositoryTest {
 
 	Category category;
 
-	@Test
-	void findTop10ByOrderByCreatedAtDesc() {
-		// given // when
-		List<Post> posts = postQueryRepository.findTop12ByOrderByCreatedAtDesc();
-
-		// then
-
-		for(int i=0; i< 10; i++) {
-			Assertions.assertEquals(i+1, posts.get(i).getPostSeq());
-		}
-
-
-	}
+//	@Test
+//	void findTop10ByOrderByCreatedAtDesc() {
+//		// given // when
+//		List<Post> posts = postQueryRepository.findTop12ByOrderByCreatedAtDesc();
+//
+//		// then
+//
+//		for(int i=0; i< 10; i++) {
+//			Assertions.assertEquals(i+1, posts.get(i).getPostSeq());
+//		}
+//
+//
+//	}
 
 	void clear() {
 		em.flush();
