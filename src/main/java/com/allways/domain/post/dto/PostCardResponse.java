@@ -15,6 +15,7 @@ import lombok.*;
 @Builder
 public class PostCardResponse {
 	private Long postSeq;
+	private Long userSeq;
 	private String postTitle;
 	private String subTitle;
 
@@ -29,17 +30,18 @@ public class PostCardResponse {
 
 
 	// private
-	public PostCardResponse(Post post,String userId, String nickName ) {
+	public PostCardResponse(Post post,String userId, String nickName , Long userSeq) {
 		this.postSeq = post.getPostSeq();
 		this.postTitle = post.getPostTitle();
 		this.postDate = post.getCreatedAt();
 		this.subTitle = generateSubtitleFromContent(post.getPostContent(), Constants.SUBTITLE_LENGTH);
 		this.userId = userId;
 		this.nickName = nickName;
+		this.userSeq = userSeq;
 
 	}
 
-	public static PostCardResponse toResponse(Post post,String userId, String nickName, String profileImg,String thumbImg) {
+	public static PostCardResponse toResponse(Post post,String userId, String nickName, String profileImg,String thumbImg,Long userSeq) {
 		return PostCardResponse.builder()
 			.postSeq(post.getPostSeq())
 			.postTitle(post.getPostTitle())
@@ -49,6 +51,7 @@ public class PostCardResponse {
 			.nickName(nickName)
 			.profileImg(profileImg)
 			.thumbImg(thumbImg)
+			.userSeq(userSeq)
 			.build();
 	}
 

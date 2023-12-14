@@ -42,7 +42,7 @@ public class PostQueryService {
 	@Transactional
 	public List<PostCardResponse> readMainPosts() {
 
-		List<Post> posts = postQueryRepository.findTop12ByOrderByCreatedAtDesc();
+		List<Post> posts = postQueryRepository.findTop12ByOrderByPostSeqDesc();
 
 		for(Post post: posts){
 			System.out.println(post.getPostSeq());
@@ -71,7 +71,7 @@ public class PostQueryService {
 			for (UserByPostResponse userByPostResponse : userByPostResponseList) {
 				if (Objects.equals(post.getPostSeq(), userByPostResponse.getPostSeq())) {
 					postCardResponse.add(new PostCardResponse(post, userByPostResponse.getUserId(),
-							userByPostResponse.getNickname()));
+							userByPostResponse.getNickname(),post.getUserSeq()));
 				}
 			}
 
@@ -165,7 +165,7 @@ public class PostQueryService {
 				if(Objects.equals(post.getPostSeq(), fileFeignResponse.getPostSeq())){
 					String postProfileImg = fileFeignResponse.getProfileImg();
 					String postThumbImg = fileFeignResponse.getThumbImg();
-					PostCardResponse newCardResponse = PostCardResponse.toResponse(post, userId, nickname, postProfileImg, postThumbImg);
+					PostCardResponse newCardResponse = PostCardResponse.toResponse(post, userId, nickname, postProfileImg, postThumbImg,userSeq);
 					postCardResponse.add(newCardResponse);
 				}
 
